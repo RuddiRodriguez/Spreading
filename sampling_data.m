@@ -13,9 +13,23 @@ catch err
     vector = [T' post Den];
     pos = pos(1:length(times));
 end
-timeinter = 0:0.5:tmax;
-yy = interp1(times,pos(1:length(times)),timeinter);
-vinterp = diff (yy)./diff(timeinter);
+timeinter = 0:0.1:tmax;
+try
+% yy = interp1(times,pos(1:length(times)),timeinter);
+[yy,~,~,~]=bin_data_myy(times,pos(1:length(times)),timeinter);
+catch err
+% ve = cumsum(ones(size(pos))).*pos*eps                       % Scaled Offset For Non-Zero Elements
+% ve = ve + cumsum(ones(size(pos))).*(pos==0)*eps             % Add Scaled Offset For Zero Elements
+% vi = pos + ve  
+%     pos = consolidator(pos);
+[yy,~,~,~]=bin_data_myy(times,pos(1:length(times)),timeinter)
+%      [~,indexuni]=unique(pos) ;
+%     yy = interp1(times,pos(1:length(times)),timeinter);
+% yy=NaN;
+% return;
+end 
+plot(timeinter,yy);hold on ; plot (times,pos);hold on
+vinterp = diff (yy)./diff(timeinter)';
 % yy=NaN;
 % vinterp=NaN;
 

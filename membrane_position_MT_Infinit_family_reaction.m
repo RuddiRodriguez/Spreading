@@ -1,5 +1,5 @@
 function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp] = membrane_position_MT_Infinit_family_reaction (ratesi,...
-    kappa,sigmai,maxsimutime,npin,densityi)
+    kappa,sigmai,maxsimutime,npin,density,initubel,densityindex)
 
 %%
 % this function try to simulate the membrane spreading using
@@ -10,10 +10,10 @@ function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector
 %
 %
 %% Input checking
-% close all
-if nargin < 1 || isempty (kappa)
+ close all
+if nargin < 1 || isempty (ratesi)
     
-    ratesi = [1.5 25 50 50 0 0];
+    ratesi = [1.5 25 500 500 0 0];
     %ratesi = [1.3 295 20 20 ];%100 100 100];
     %     ratesi = [1.3 25 120 120]%100 100 100];
 end
@@ -40,8 +40,17 @@ end
 
 if nargin < 6
     
-    densityi = 200 ;                                                         %particles per um2
+    density = 1 ;                                                         %particles per um2
 end
+if nargin < 7
+    
+    initubel = 32 ;                                                         %particles per um2
+end
+if nargin < 8
+    
+    densityindex = 1 ;                                                         %particles per um2
+end
+
 %% Matrix Initialization
 reactionn = length (ratesi(ratesi~=0));
 globalrate = zeros (1,reactionn);
@@ -58,7 +67,7 @@ m=0;
 Vm = 0.008*ratesi(1,2);
 %[r1] = random_generator;
 numberpb = npin;
-[MTarryocupation,ocupationnumber,arrayrates,Tubeli,iMTLsize,iarraysize] = simulation_initialization_matrix_infinite(reactionn);
+[MTarryocupation,ocupationnumber,arrayrates,Tubeli,iMTLsize,iarraysize] = simulation_initialization_matrix_infinite(reactionn,density, initubel,densityindex);
 [matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1] = matrix_transition_reaction_family();
 
 
@@ -275,18 +284,18 @@ while t <= t_final
     %% Plotting
     
      if (mod(m,10000) == 0)
-%           subplot(1,2,1);
-%           plot(times(1:count), pos(1:count,1), times(count),pos(count,1),'.r');
-% % %         
-% % % %        plot(MTarryocupation(MTarryocupation~=0),'LineWidth',12);
-%  subplot(1,2,2);
-%          plot(times(1:count), controldensity(1:count,1),...
-%          times(count),controldensity(count,1),'.r');
-%  % %  subplot(1,2,2);
-% % % %   plot(times(1:count), sigmao(1:count,1), times(count),sigmao(count,1),'.r');
-% % % % %  %plot (ocupationnumber(ocupationnumber~=0));
-% % % % %  plot (times(count),ocupationnumber(1),'.r');
-%     drawnow;
+%            subplot(1,3,1);
+%              plot(times(1:count), pos(1:count,1), times(count),pos(count,1),'.r');
+% % % % %         
+% % % % % %        plot(MTarryocupation(MTarryocupation~=0),'LineWidth',12);
+    subplot(1,3,2);
+            plot(times(1:count), controldensity(1:count,1),...
+            times(count),controldensity(count,1),'.r');
+%  % subplot(1,3,3);
+% % % % % %   plot(times(1:count), sigmao(1:count,1), times(count),sigmao(count,1),'.r');
+% % plot (ocupationnumber(ocupationnumber~=0));
+% % % % % % %  plot (times(count),ocupationnumber(1),'.r');
+        drawnow;
 % % % % 
 %  [vector,yy] = sampling_data(times,pos,200,1);
 % % vector = [times',pos,controldensity];
@@ -317,5 +326,5 @@ if status == 0
 end 
 
 
- [vector,interpovar,vinterp] = sampling_data(times,pos,controldensity,100,t_final);
+ [vector,interpovar,vinterp] = sampling_data(times,pos,controldensity,500,t_final);
 end

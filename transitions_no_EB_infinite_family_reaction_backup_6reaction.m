@@ -245,23 +245,23 @@ if  transitionkind == 5 &&  positiontran~=0 && positiontran~=1 && MTarryocupatio
     end
     %
     
-    %try
-    %if positiontran == lastnonzeromembranes(end)-1  && MTarryocupation (positiontran+1)==0
-    %     new_pos = pos(end) + 0.008;
-    %   iarraysize = iarraysize+1 ;
-    %  ocupationnumber(2:positiontran+2)=ocupationnumber(1:positiontran+1);
-    %  MTarryocupation(2:positiontran+1)=MTarryocupation(1:positiontran);
-    %      MTarryocupation (positiontran+1) =  MTarryocupation (positiontran+1)+1;
-    %      MTarryocupation (positiontran) = MTarryocupation (positiontran)-1;
-    %end
-    %catch err
-    %   if isempty(lastnonzeromembranes)==1
-    %    new_pos = pos(end) + 0;
-    %  iarraysize = iarraysize+0 ;
-    %  ocupationnumber  = ocupationnumber ;
-    % MTarryocupation  = MTarryocupation ;
-    %end
-    %end
+%     try
+%     if positiontran == lastnonzeromembranes(end)-1  && MTarryocupation (positiontran+1)==0
+%         new_pos = pos(end) + 0.008;
+%       iarraysize = iarraysize+1 ;
+%      ocupationnumber(2:positiontran+2)=ocupationnumber(1:positiontran+1);
+%      MTarryocupation(2:positiontran+1)=MTarryocupation(1:positiontran);
+%          MTarryocupation (positiontran+1) =  MTarryocupation (positiontran+1)+1;
+%          MTarryocupation (positiontran) = MTarryocupation (positiontran)-1;
+%     end
+%     catch err
+%       if isempty(lastnonzeromembranes)==1
+%        new_pos = pos(end) + 0;
+%      iarraysize = iarraysize+0 ;
+%      ocupationnumber  = ocupationnumber ;
+%     MTarryocupation  = MTarryocupation ;
+%     end
+%     end
     
     
 end
@@ -284,28 +284,28 @@ if  transitionkind == 6 &&  positiontran~=0 && positiontran~=1 && MTarryocupatio
         end
     end
     %
-    try
-    if positiontran == lastnonzeromembranes(end)-1  && MTarryocupation (positiontran-1)==0
-           nextposition=1;
-          new_pos = pos(end) - (nextposition.*0.008);
-         iarraysize = iarraysize-nextposition ;
-    %
-    %
-         ocupationnumber(1)=sum(ocupationnumber(1:1+nextposition));
-         ocupationnumber(2:positiontran+1)=ocupationnumber((2+nextposition):(positiontran+nextposition+1));
-    ocupationnumber(1:positiontran+1)=ocupationnumber((1+nextposition):(positiontran+nextposition+1));
-    %
-           MTarryocupation (positiontran-1) =  MTarryocupation (positiontran-1)+1;
-          MTarryocupation (positiontran) = MTarryocupation (positiontran)-1;
-    end
-    catch err
-      if isempty(lastnonzeromembranes)==1
-      new_pos = pos(end) + 0;
-    iarraysize = iarraysize+0 ;
-    ocupationnumber  = ocupationnumber ;
-    MTarryocupation  = MTarryocupation ;
-    end
-    end
+%     try
+%     if positiontran == lastnonzeromembranes(end)-1  && MTarryocupation (positiontran-1)==0
+%            nextposition=1;
+%           new_pos = pos(end) - (nextposition.*0.008);
+%          iarraysize = iarraysize-nextposition ;
+%     %
+%     %
+%          ocupationnumber(1)=sum(ocupationnumber(1:1+nextposition));
+%          ocupationnumber(2:positiontran+1)=ocupationnumber((2+nextposition):(positiontran+nextposition+1));
+%     ocupationnumber(1:positiontran+1)=ocupationnumber((1+nextposition):(positiontran+nextposition+1));
+%     %
+%            MTarryocupation (positiontran-1) =  MTarryocupation (positiontran-1)+1;
+%           MTarryocupation (positiontran) = MTarryocupation (positiontran)-1;
+%     end
+%     catch err
+%       if isempty(lastnonzeromembranes)==1
+%       new_pos = pos(end) + 0;
+%     iarraysize = iarraysize+0 ;
+%     ocupationnumber  = ocupationnumber ;
+%     MTarryocupation  = MTarryocupation ;
+%     end
+%     end
     
     
 %             if any (MTarryocupation(MTarryocupation~=0)>1)
