@@ -214,7 +214,7 @@ if  transitionkind == 3 &&  positiontran~=0   && ocupationnumber (positiontran)~
     end
 [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
 
-if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
+if controldensityneww <(controldensitynew-5) || controldensityneww >(controldensitynew+5)
  ocupationnumber =ocupationnumbertemp;
  
 end
@@ -251,7 +251,7 @@ if  transitionkind == 4 &&  positiontran~=0   && ocupationnumber (positiontran)~
     
     [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
 
-if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
+if controldensityneww <(controldensitynew-5) || controldensityneww >(controldensitynew+5)
  ocupationnumber =ocupationnumbertemp;
  
 end
@@ -284,7 +284,7 @@ if  transitionkind == 5 &&  positiontran~=0  && MTarryocupation (positiontran)==
         
    [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
 
-if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
+if controldensityneww <(controldensitynew-5) || controldensityneww >(controldensitynew+5)
  MTarryocupation =MTarryocupationtemp;
  
 end     
@@ -344,7 +344,7 @@ if  transitionkind == 6 &&  positiontran~=0 && positiontran~=1 && MTarryocupatio
       
   [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
 
-if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
+if controldensityneww <(controldensitynew-5) || controldensityneww >(controldensitynew+5)
  MTarryocupation =MTarryocupationtemp;
  
 end  
@@ -422,7 +422,7 @@ end
  MTocutemp = MTarryocupation(2:end);
     memocutemp = ocupationnumber(2:end);
    controldensityneww=(sum(MTocutemp(MTocutemp~=0))+sum(memocutemp(memocutemp~=0)))/new_pos ;
- if controldensityneww <controldensitynew %&& transitionkind==3
+ if controldensityneww <controldensitynew && transitionkind==3
      
      ctr=ctr+1;
  transitionkindtest (ctr) =  transitionkind;

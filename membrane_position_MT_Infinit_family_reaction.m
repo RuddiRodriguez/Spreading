@@ -13,7 +13,7 @@ function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector
  close all
 if nargin < 1 || isempty (ratesi)
     
-    ratesi = [1.5 25 500 500 0 0];
+    ratesi = [1.2 12 5 5 0 0];
     %ratesi = [1.3 295 20 20 ];%100 100 100];
     %     ratesi = [1.3 25 120 120]%100 100 100];
 end
@@ -50,9 +50,18 @@ if nargin < 8
     
     densityindex = 1 ;                                                         %particles per um2
 end
+%% Parameters Intialization
+ 
+numberpb = npin;
+Tubeli=initubel;
+[koof,R_ini,r0_ini,~,~,new_pos,times,t_final,count,~,~,Lcritical,t,pos,betat] = simulation_parameter_initialization_infinite(ratesi,maxsimutime,numberpb,sigmai,kappa,Tubeli);
+%post (1)= pos;
+ouft=0;inft=0;ctr=0;transitionkindtest=0;positiontrantest=0;
+positiontran=0;
+tranflag=0;
 
 %% Matrix Initialization
-reactionn = length (ratesi(ratesi~=0));
+reactionn = 6;%length (ratesi(ratesi~=0));
 globalrate = zeros (1,reactionn);
 tau = zeros (1,reactionn);
 sigmao=ratesi (1,1);
@@ -66,20 +75,16 @@ sigmao=ratesi (1,1);
 m=0;
 Vm = 0.008*ratesi(1,2);
 %[r1] = random_generator;
-numberpb = npin;
-[MTarryocupation,ocupationnumber,arrayrates,Tubeli,iMTLsize,iarraysize] = simulation_initialization_matrix_infinite(reactionn,density, initubel,densityindex);
+[MTarryocupation,ocupationnumber,arrayrates,Tubeli,iMTLsize,iarraysize,densitylb,densitylu] = simulation_initialization_matrix_infinite(reactionn,density, initubel,densityindex,r0_ini,ratesi);
 [matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1] = matrix_transition_reaction_family();
 
-
-%% Parameters Intialization
- 
-[koof,R_ini,r0_ini,~,~,new_pos,times,t_final,count,~,~,Lcritical,t,pos,betat] = simulation_parameter_initialization_infinite(ratesi,maxsimutime,numberpb,sigmai,kappa,Tubeli);
-%post (1)= pos;
-controldensity=sum(MTarryocupation(MTarryocupation~=0))+sum(ocupationnumber(ocupationnumber~=0)) ;
-AL = 2*pi*(r0_ini*1000000)*(Tubeli/1000);
+MTocutemp = MTarryocupation(2:end);
+    memocutemp = ocupationnumber(2:end);
+   controldensity=sum(MTocutemp(MTocutemp~=0))+sum(memocutemp(memocutemp~=0)) ;
+   densityluu=controldensity;
+AL =(Tubeli/1000);
 controldensity=controldensity/AL;
-positiontran=0;
-tranflag=0;
+ocupacontrol = ocupationnumber(2);
 %% Loop
 %  spmd
 %for i=1:1000000
@@ -140,7 +145,7 @@ while t <= t_final
     %% Rates Matrix initialization arrayrates is the propensity of the reaction
     %     ocupationnumber = gather (ocupationnumber);
      if count ==1
-     [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag);
+     [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu);
     
      end
     
@@ -237,9 +242,18 @@ while t <= t_final
 % if lastnonzeromembranest(end)<=lastnonzeroMTt(end)
 %         testb =1;
 %     end 
-        [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag ] = transitions_no_EB_infinite_family_reaction_backup_6reaction(transitionkind,positiontran,ocupationnumber,MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1 );
+        [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,ouft,inft,transitionkindtest,positiontrantest,ctr ] = transitions_no_EB_infinite_family_reaction_backup_6reaction(transitionkind,positiontran,ocupationnumber,...
+            MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,ouft,inft ,ctr,transitionkindtest,positiontrantest);
        if count ~=1
-     [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag);
+           MTocutemp = MTarryocupation(2:end);
+    memocutemp = ocupationnumber(2:end);
+   controldensitynew=sum(MTocutemp(MTocutemp~=0))+sum(memocutemp(memocutemp~=0)) ;
+   AL = (pos(end));
+   controldensitynew=controldensitynew/( AL);
+   controldensity = [controldensity; controldensitynew];
+  densitylu = sum(memocutemp)/(AL);
+  densitylb = sum(MTocutemp)/(AL);
+     [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu);
     
     end 
         
@@ -254,9 +268,9 @@ while t <= t_final
         break;
     end
     
-    if isempty ( ocupationnumber)
-        break;
-    end
+%     if isempty ( ocupationnumber)
+%         break;
+%     end
     
      pos = [pos;new_pos];                                                    % update vector with all positions
      
@@ -270,10 +284,16 @@ while t <= t_final
     times = [times, t]; 
     % update vector with all times
     %     koofreo = [koofreo ; koofre];
-   controldensitynew=sum(MTarryocupation(MTarryocupation~=0))+sum(ocupationnumber(ocupationnumber~=0)) ;
-   AL = 2*pi*(r0_ini*1000000)*(pos(end));
-    controldensitynew=controldensitynew/( AL);
+     MTocutemp = MTarryocupation(2:end);
+    memocutemp = ocupationnumber(2:end);
+   controldensitynew=sum(MTocutemp(MTocutemp~=0))+sum(memocutemp(memocutemp~=0)) ;
+   AL = (pos(end));
+   controldensitynew=controldensitynew/( AL);
    controldensity = [controldensity; controldensitynew];
+   ocupacontrol = [ocupacontrol;ocupationnumber(2)];
+   if (controldensity(end))>40
+       testr = 1;
+   end
    if pos(end)<=0
          pos = [pos;new_pos];
           times = [times, t];
@@ -283,26 +303,29 @@ while t <= t_final
    
     %% Plotting
     
-     if (mod(m,10000) == 0)
-%            subplot(1,3,1);
-%              plot(times(1:count), pos(1:count,1), times(count),pos(count,1),'.r');
-% % % % %         
-% % % % % %        plot(MTarryocupation(MTarryocupation~=0),'LineWidth',12);
+     if (mod(m,100000) == 0)
+           subplot(1,3,1);
+              plot(times(1:count), pos(1:count,1), times(count),pos(count,1),'.r');
+% % % % % %         
+% % % % % % %        plot(MTarryocupation(MTarryocupation~=0),'LineWidth',12);
     subplot(1,3,2);
             plot(times(1:count), controldensity(1:count,1),...
             times(count),controldensity(count,1),'.r');
-%  % subplot(1,3,3);
-% % % % % %   plot(times(1:count), sigmao(1:count,1), times(count),sigmao(count,1),'.r');
-% % plot (ocupationnumber(ocupationnumber~=0));
-% % % % % % %  plot (times(count),ocupationnumber(1),'.r');
-        drawnow;
+ subplot(1,3,3);
+% % % % % % %   plot(times(1:count), sigmao(1:count,1), times(count),sigmao(count,1),'.r');
+%  ocupp = ocupationnumber(ocupationnumber~=0);
+%  ocupp (ocupp==0)= NaN;
+%  plot (ocupp,'ro');
+% plot (times(count),ocupacontrol,'.r');
+%  plot(times(1:count), ocupacontrol(1:count,1), times(count),ocupacontrol(count,1),'.r');
+         drawnow;
 % % % % 
 %  [vector,yy] = sampling_data(times,pos,200,1);
 % % vector = [times',pos,controldensity];
    fprintf('%i\n',times(end)); 
 %  save(sprintf('%s/retemp',f),'yy','-ascii');
 
-     end
+    end
     
     m=m+1;
     
@@ -326,5 +349,5 @@ if status == 0
 end 
 
 
- [vector,interpovar,vinterp] = sampling_data(times,pos,controldensity,500,t_final);
+ [vector,interpovar,vinterp] = sampling_data(times,pos,controldensity,50000,t_final);
 end

@@ -2,14 +2,19 @@ function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector
     kappa,sigmai,maxsimutime,npin,density,initubel,densityindex)
 if nargin < 1 || isempty (kappa)
     
-    ratesi = [1.5 12 16200 16200 1000 1000];
+    ratesi = [1.5 12 4745 4745 300 300];
+    Pb = ratesi(1,2)./(ratesi(1,1)+ratesi(1,2));
+    Pu = ratesi(1,1)./(ratesi(1,1)+ratesi(1,2));
+%     DM = (Pb*1)+Pu*(0.8);
+%     rateDM = DM/(0.008*0.008);
+%     ratesi(1,5:6) =  rateDM;
     %ratesi = [1.3 295 20 20 ];%100 100 100];
     %     ratesi = [1.3 25 120 120]%100 100 100];
 end
 
 if nargin < 2 || isempty (kappa)
     
-    kappa =[  1].*1e-20;
+    kappa =[  5].*1e-20;
 end
 
 if nargin < 3 || isempty (sigmai)
@@ -19,7 +24,7 @@ end
 
 if nargin < 4
     
-    maxsimutime =1;
+    maxsimutime =10;
 end
 
 if nargin < 5
@@ -29,7 +34,7 @@ end
 
 if nargin < 6
     
-    density = [  1   ] ;                                                         %particles per um2
+    density = [ 4   ] ;                                                         %particles per um2
 end
 if nargin < 7
     
@@ -37,12 +42,18 @@ if nargin < 7
 end
 if nargin < 8
     
-    densityindex = [10] ;                                                         %particles per um2
+    densityindex = [1] ;                                                         %particles per um2
 end
+%% 
+
+
+%% 
+
+
 
 figure ;
 
-results = cell (3,length(densityindex),length(kappa))
+results = cell (3,length(densityindex),length(kappa));
 vt= 0 ;
 for j =1:length(kappa)
     j
@@ -60,8 +71,10 @@ for j =1:length(kappa)
         end
         vt (vt<=0)=NaN;
         vtmean(k,j)=nanmean(nanmean(vt));
+%         stdmean (k,j)
     end
 end
+% [fitresult, gof] = createFit_power(vector(:,1),vector(:,2)-vector(1,2));
 % figure;contourf(kappa,densityindex,vtmean);
 % colorbar
 %vt (vt<=0)=NaN;

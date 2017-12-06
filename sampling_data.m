@@ -13,7 +13,7 @@ catch err
     vector = [T' post Den];
     pos = pos(1:length(times));
 end
-timeinter = 0:0.1:tmax;
+timeinter = 0:0.5:tmax;
 try
 % yy = interp1(times,pos(1:length(times)),timeinter);
 [yy,~,~,~]=bin_data_myy(times,pos(1:length(times)),timeinter);
@@ -27,8 +27,8 @@ catch err
 %     yy = interp1(times,pos(1:length(times)),timeinter);
 % yy=NaN;
 % return;
-end 
-plot(timeinter,yy);hold on ; plot (times,pos);hold on
+end
+figure;plot (times,pos);hold on;plot(timeinter,yy,'ro');hold on
 vinterp = diff (yy)./diff(timeinter)';
 % yy=NaN;
 % vinterp=NaN;
