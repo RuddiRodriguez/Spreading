@@ -242,17 +242,19 @@ while t <= t_final
 % if lastnonzeromembranest(end)<=lastnonzeroMTt(end)
 %         testb =1;
 %     end 
-        [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,ouft,inft,transitionkindtest,positiontrantest,ctr ] = transitions_no_EB_infinite_family_reaction_backup_6reaction(transitionkind,positiontran,ocupationnumber,...
-            MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,ouft,inft ,ctr,transitionkindtest,positiontrantest);
+
+        [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew ] = transitions_no_EB_infinite_family_reaction_backup_6reaction(transitionkind,positiontran,ocupationnumber,...
+            MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,ouft,inft,controldensity(end) );
        if count ~=1
-           MTocutemp = MTarryocupation(2:end);
-    memocutemp = ocupationnumber(2:end);
-   controldensitynew=sum(MTocutemp(MTocutemp~=0))+sum(memocutemp(memocutemp~=0)) ;
-   AL = (pos(end));
-   controldensitynew=controldensitynew/( AL);
-   controldensity = [controldensity; controldensitynew];
-  densitylu = sum(memocutemp)/(AL);
-  densitylb = sum(MTocutemp)/(AL);
+%            MTocutemp = MTarryocupation(2:end);
+%     memocutemp = ocupationnumber(2:end);
+%    controldensitynew=sum(MTocutemp(MTocutemp~=0))+sum(memocutemp(memocutemp~=0)) ;
+%    AL = (pos(end));
+%    controldensitynew=controldensitynew/( AL);
+%    controldensity = [controldensity; controldensitynew];
+%   densitylu = sum(memocutemp)/(AL);
+%   densitylb = sum(MTocutemp)/(AL);
+
      [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu);
     
     end 
@@ -284,16 +286,12 @@ while t <= t_final
     times = [times, t]; 
     % update vector with all times
     %     koofreo = [koofreo ; koofre];
-     MTocutemp = MTarryocupation(2:end);
-    memocutemp = ocupationnumber(2:end);
-   controldensitynew=sum(MTocutemp(MTocutemp~=0))+sum(memocutemp(memocutemp~=0)) ;
-   AL = (pos(end));
-   controldensitynew=controldensitynew/( AL);
+     
    controldensity = [controldensity; controldensitynew];
-   ocupacontrol = [ocupacontrol;ocupationnumber(2)];
-   if (controldensity(end))>40
-       testr = 1;
-   end
+%    ocupacontrol = [ocupacontrol;ocupationnumber(2)];
+%    if (controldensity(end))>40
+%        testr = 1;
+%    end
    if pos(end)<=0
          pos = [pos;new_pos];
           times = [times, t];
@@ -303,22 +301,22 @@ while t <= t_final
    
     %% Plotting
     
-     if (mod(m,100000) == 0)
-           subplot(1,3,1);
-              plot(times(1:count), pos(1:count,1), times(count),pos(count,1),'.r');
-% % % % % %         
-% % % % % % %        plot(MTarryocupation(MTarryocupation~=0),'LineWidth',12);
-    subplot(1,3,2);
-            plot(times(1:count), controldensity(1:count,1),...
-            times(count),controldensity(count,1),'.r');
- subplot(1,3,3);
-% % % % % % %   plot(times(1:count), sigmao(1:count,1), times(count),sigmao(count,1),'.r');
-%  ocupp = ocupationnumber(ocupationnumber~=0);
-%  ocupp (ocupp==0)= NaN;
-%  plot (ocupp,'ro');
-% plot (times(count),ocupacontrol,'.r');
-%  plot(times(1:count), ocupacontrol(1:count,1), times(count),ocupacontrol(count,1),'.r');
-         drawnow;
+     if (mod(m,1000) == 0)
+            subplot(1,2,1);
+               plot(times(1:count), pos(1:count,1), times(count),pos(count,1),'.r');
+% % % % % % %         
+% % % % % % % %        plot(MTarryocupation(MTarryocupation~=0),'LineWidth',12);
+     subplot(1,2,2);
+             plot(times(1:count), controldensity(1:count,1),...
+             times(count),controldensity(count,1),'.r');
+%  subplot(1,3,3);
+% % % % % % % %   plot(times(1:count), sigmao(1:count,1), times(count),sigmao(count,1),'.r');
+% %  ocupp = ocupationnumber(ocupationnumber~=0);
+% %  ocupp (ocupp==0)= NaN;
+% %  plot (ocupp,'ro');
+% % plot (times(count),ocupacontrol,'.r');
+% %  plot(times(1:count), ocupacontrol(1:count,1), times(count),ocupacontrol(count,1),'.r');
+          drawnow;
 % % % % 
 %  [vector,yy] = sampling_data(times,pos,200,1);
 % % vector = [times',pos,controldensity];

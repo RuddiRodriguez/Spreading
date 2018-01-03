@@ -28,7 +28,7 @@ function [np,MTarryocupationtemp ] = initialization_infinite(ocupationnumber,num
     end 
     
     
-    MTarryocupationtemp = MTarryocupation(MTarryocupation~=0);              
+    MTarryocupationtemp = nonzeros(MTarryocupation);              
     
     if length (MTarryocupationtemp)< 2
         

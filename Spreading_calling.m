@@ -2,7 +2,8 @@ function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector
     kappa,sigmai,maxsimutime,npin,density,initubel,densityindex)
 if nargin < 1 || isempty (kappa)
     
-    ratesi = [1.5 12 4745 4745 300 300];
+    ratesi = [1.5 16.5 4745 4745 300 300];
+    %ratesi = [0.0050    0.0400   15.8167   15.8167    1.0000    1.0000];
     Pb = ratesi(1,2)./(ratesi(1,1)+ratesi(1,2));
     Pu = ratesi(1,1)./(ratesi(1,1)+ratesi(1,2));
 %     DM = (Pb*1)+Pu*(0.8);
@@ -24,7 +25,7 @@ end
 
 if nargin < 4
     
-    maxsimutime =10;
+    maxsimutime =5;
 end
 
 if nargin < 5
@@ -60,7 +61,7 @@ for j =1:length(kappa)
     for k =1:length(densityindex)
         k
         vinterp=0;
-        for i=1:1
+        for i=1:20
             [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp] = membrane_position_MT_Infinit_family_reaction (ratesi,...
                 kappa(j),sigmai,maxsimutime,npin,density(1),initubel,densityindex(k));
             
@@ -69,7 +70,7 @@ for j =1:length(kappa)
             results {i,k,j} = vector;
             
         end
-        vt (vt<=0)=NaN;
+        %vt (vt<=0)=NaN;
         vtmean(k,j)=nanmean(nanmean(vt));
 %         stdmean (k,j)
     end
