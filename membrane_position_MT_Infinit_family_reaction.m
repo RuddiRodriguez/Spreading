@@ -196,29 +196,7 @@ while t <= t_final
     %% Tube progression
     
     %initialization
-    
-    
-    if Imintau==1
-        
-        [mnumber] = position_transition_family_reaction (arrayrates(Imintau,:),globalrate(1),r1(reactionn+1));
-    end
-    
-    if Imintau==2
-        [mnumber] = position_transition_family_reaction (arrayrates(Imintau,:),globalrate(2),r1(reactionn+1));
-    end
-    
-    if Imintau==3
-        [mnumber] = position_transition_family_reaction (arrayrates(Imintau,:), globalrate(3),r1(reactionn+1));
-    end
-    if Imintau==4
-        [mnumber] = position_transition_family_reaction (arrayrates(Imintau,:),globalrate(4),r1(reactionn+1));
-    end
-    if Imintau==5
-        [mnumber] = position_transition_family_reaction (arrayrates(Imintau,:),globalrate(5),r1(reactionn+1));
-    end
-    if Imintau==6
-        [mnumber] = position_transition_family_reaction (arrayrates(Imintau,:),globalrate(6),r1(reactionn+1));
-    end
+    [mnumber] = position_transition_family_reaction (arrayrates(Imintau,:),globalrate(Imintau),r1(reactionn+1));
     
     %% taking position and kind of transition
     if mnumber==0

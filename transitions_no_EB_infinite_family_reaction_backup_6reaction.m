@@ -8,10 +8,7 @@ function [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranfla
 
 %% Lattice
 
-%ocupationnumber = gpuArray(ocupationnumber);
-% MTocutemp = MTarryocupation(2:end);
-% memocutemp = ocupationnumber(2:end);
-% controldensitynew=(sum(MTocutemp(MTocutemp~=0))+sum(memocutemp(memocutemp~=0)))/pos(end) ;
+
 tranflag=0;
 status=1;
 lastnonzeromembranes = find (ocupationnumber>0);
@@ -21,162 +18,75 @@ postemp = pos(end);
 iarraysizetemp = iarraysize;
 ocupationnumbertemp  = ocupationnumber;
 MTarryocupationtemp = MTarryocupation;
- 
-% if transitionkind == 0 &&  positiontran ==0
-%
-%     new_pos = pos(end) + 0;
-%     iarraysize = iarraysize+0 ;
-%     ocupationnumber  = ocupationnumber ;
-%     MTarryocupation  = MTarryocupation ;
-%
-% end
-% if transitionkind == 2
-%
-%     testt = 1;
-% end
+ouft=ouft+0; 
+
 switch transitionkind
     
     %% Diffusion
     case 3
-        
+        [new_pos,iarraysize,ocupationnumber,tranflag] = diff_mem_right(new_pos,positiontran,ocupationnumber,...
+    lastnonzeroMT,pos,iarraysize,matrix_tmemla,matrix_tmemlap1,lastnonzeromembranes,MTarryocupation,...
+    controldensitynew,ocupationnumbertemp,tranflag);
         %%Diffusion on membrane
         % Diffusion to the right
-        if  transitionkind == 3 &&  positiontran~=0   && ocupationnumber (positiontran)~=0
-            
-            
-          
-            
-            
-            
-            if  positiontran ~= lastnonzeroMT(end)+1 && ocupationnumber (positiontran+1)<5
-                new_pos = pos(end) + 0;
-                iarraysize = iarraysize+0 ;
-                if positiontran~=1
-                    ocupationnumber (positiontran-1:positiontran+1) = ocupationnumber (positiontran-1:positiontran+1)+matrix_tmemla (3,:);
-                    
-                else
-                    ocupationnumber (positiontran:positiontran+1) = ocupationnumber (positiontran:positiontran+1)+matrix_tmemlap1 (3,:);
-                    inft=inft+1;
-                end
-                %     ocupationnumber (positiontran+1) =  ocupationnumber (positiontran+1)+1;
-                %     ocupationnumber (positiontran) = ocupationnumber (positiontran)-1;
-                %  if lastnonzeromembranes(end)<lastnonzeroMT(end)
-                %         testb =1
-                %     end
-            end
-            %     try
-            %         if  positiontran == lastnonzeroMT(end)+1 && positiontran~=1 && lastnonzeromembranes(end)<=lastnonzeroMT(end) &&ocupationnumber (positiontran+1)<=50
-            %
-            %             ocupationnumber (positiontran-1:positiontran+1) = ocupationnumber (positiontran-1:positiontran+1)+matrix_tmemla (3,:);
-            %         end
-            %     catch err
-            %         return;
-            %     end
-            if positiontran == lastnonzeroMT(end)+1  && lastnonzeromembranes(end)<=lastnonzeroMT(end) &&ocupationnumber (positiontran+1)<=50
-                
-                ocupationnumber (positiontran:positiontran+1) = ocupationnumber (positiontran:positiontran+1)+matrix_tmemlap1 (3,:);
-            end
-            [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
-            
-            if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
-                ocupationnumber =ocupationnumbertemp;
-                
-            end
-            
-            
-            
-            tranflag=3;
-        end
+       
     case 4
         % Diffusion to the left
-        if  transitionkind == 4 &&  positiontran~=0   && ocupationnumber (positiontran)~=0
-           
-            
-            if  positiontran~=1 && ocupationnumber (positiontran-1)<5 && positiontran~=2
-                new_pos = pos(end) + 0;
-                iarraysize = iarraysize+0 ;
-                %     ocupationnumber (positiontran-1) =  ocupationnumber (positiontran-1)+1;
-                %     ocupationnumber (positiontran) = ocupationnumber (positiontran)-1;
-                ocupationnumber (positiontran-1:positiontran+1) = ocupationnumber (positiontran-1:positiontran+1)+matrix_tmemla (4,:);
-                %     if lastnonzeromembranes(end)<lastnonzeroMT(end)
-                %         testb =1
-                %     end
-                if positiontran==2
-                    ouft=ouft+1;
-                    %                 ocupationnumber (2)=ocupationnumber (2)+1;
-                end
-            end
-            
-            if  positiontran==1 && ocupationnumber (positiontran)<=5
-                new_pos = pos(end) + 0;
-                iarraysize = iarraysize+0 ;
-                ocupationnumber (positiontran:positiontran+1) = ocupationnumber (positiontran:positiontran+1)+matrix_tmemlap1 (4,:);
-                %ocupationnumber (positiontran) = ocupationnumber (positiontran)-1;
-            end
-            
-            [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
-            
-            if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
-                ocupationnumber =ocupationnumbertemp;
-                
-            end
-            
-            
-            
-            tranflag=4;
-        end
-        
+        [new_pos,iarraysize,ocupationnumber,tranflag] = diff_mem_left(new_pos,positiontran,ocupationnumber,...
+    pos,iarraysize,matrix_tmemla,matrix_tmemlap1,MTarryocupation,controldensitynew,ocupationnumbertemp,tranflag);
         
         
         
     case 2
+        [new_pos,iarraysize,ocupationnumber,MTarryocupation] = bound_transition(new_pos,positiontran,ocupationnumber,...
+    pos,iarraysize,matrix_tmemla,matrix_tmemlap1,MTarryocupation,matrix_tMTla,matrix_tMTlap1,lastnonzeroMT);
         
-        %bound at the lattice
-        if transitionkind == 2 &&     positiontran~=0 && positiontran < lastnonzeroMT(end)+1 && ocupationnumber(positiontran)~=0 && MTarryocupation (positiontran)~=1
-            new_pos = pos(end) + 0;
-            iarraysize = iarraysize+0 ;
-            %     ocupationnumber (positiontran) = 1;
-            %     ocupationnumber (positiontran) = ocupationnumber (positiontran)-1;
-            if positiontran~=1
-                ocupationnumber (positiontran-1:positiontran+1) = ocupationnumber (positiontran-1:positiontran+1)+matrix_tmemla (2,:);
-                MTarryocupation (positiontran-1:positiontran+1) = MTarryocupation (positiontran-1:positiontran+1)+matrix_tMTla (2,:);
-            else
-                ocupationnumber (positiontran:positiontran+1) = ocupationnumber (positiontran:positiontran+1)+matrix_tmemlap1 (2,:);
-                MTarryocupation (positiontran:positiontran+1) = MTarryocupation (positiontran:positiontran+1)+matrix_tMTlap1 (2,:);
-            end
-            %     if ocupationnumber (positiontran)==0
-            %         ocupationnumber (positiontran)=randi ([1 3],1,1);
-            %     end
-            % MTarryocupation (positiontran-1:positiontran+1) = MTarryocupation (positiontran-1:positiontran+1)+matrix_tMTla (2,:);
-            % MTarryocupation (positiontran) = MTarryocupation (positiontran)+1;
-            
-            %  if lastnonzeromembranes(end)<lastnonzeroMT(end)
-            %         testb =1
-            %     end
-            
-        end
-        %bound at the tip edge
-        if transitionkind == 2 &&   positiontran~=0 && positiontran == lastnonzeroMT(end)+1 %&& MTarryocupation (positiontran)==0
-            
-            new_pos = pos(end) + 0.008;
-            iarraysize = iarraysize+1 ;
-            ocupationnumber(positiontran)=ocupationnumber(positiontran)-1;
-            ocupationnumber(3:positiontran+1)=ocupationnumber(2:positiontran);
-            ocupationnumber(2)=1;
-            %     ocupationnumber (positiontran) = ocupationnumber (positiontran)-1;
-            %     ocupationnumber (positiontran+1) = randi ([1 1],1,1);
-            %     if ocupationnumber (positiontran)==0
-            %         ocupationnumber (positiontran)=randi ([1 3],1,1);
-            %     end
-            
-            MTarryocupation (positiontran) = MTarryocupation (positiontran)+1;
-            
-            
-            %   if lastnonzeromembranes(end)<lastnonzeroMT(end)
-            %         testb =1
-            %     end
-            
-        end
+%         %bound at the lattice
+%         if transitionkind == 2 &&     positiontran~=0 && positiontran < lastnonzeroMT(end)+1 && ocupationnumber(positiontran)~=0 && MTarryocupation (positiontran)~=1
+%             new_pos = pos(end) + 0;
+%             iarraysize = iarraysize+0 ;
+%             %     ocupationnumber (positiontran) = 1;
+%             %     ocupationnumber (positiontran) = ocupationnumber (positiontran)-1;
+%             if positiontran~=1
+%                 ocupationnumber (positiontran-1:positiontran+1) = ocupationnumber (positiontran-1:positiontran+1)+matrix_tmemla (2,:);
+%                 MTarryocupation (positiontran-1:positiontran+1) = MTarryocupation (positiontran-1:positiontran+1)+matrix_tMTla (2,:);
+%             else
+%                 ocupationnumber (positiontran:positiontran+1) = ocupationnumber (positiontran:positiontran+1)+matrix_tmemlap1 (2,:);
+%                 MTarryocupation (positiontran:positiontran+1) = MTarryocupation (positiontran:positiontran+1)+matrix_tMTlap1 (2,:);
+%             end
+%             %     if ocupationnumber (positiontran)==0
+%             %         ocupationnumber (positiontran)=randi ([1 3],1,1);
+%             %     end
+%             % MTarryocupation (positiontran-1:positiontran+1) = MTarryocupation (positiontran-1:positiontran+1)+matrix_tMTla (2,:);
+%             % MTarryocupation (positiontran) = MTarryocupation (positiontran)+1;
+%             
+%             %  if lastnonzeromembranes(end)<lastnonzeroMT(end)
+%             %         testb =1
+%             %     end
+%             
+%         end
+%         %bound at the tip edge
+%         if transitionkind == 2 &&   positiontran~=0 && positiontran == lastnonzeroMT(end)+1 %&& MTarryocupation (positiontran)==0
+%             
+%             new_pos = pos(end) + 0.008;
+%             iarraysize = iarraysize+1 ;
+%             ocupationnumber(positiontran)=ocupationnumber(positiontran)-1;
+%             ocupationnumber(3:positiontran+1)=ocupationnumber(2:positiontran);
+%             ocupationnumber(2)=1;
+%             %     ocupationnumber (positiontran) = ocupationnumber (positiontran)-1;
+%             %     ocupationnumber (positiontran+1) = randi ([1 1],1,1);
+%             %     if ocupationnumber (positiontran)==0
+%             %         ocupationnumber (positiontran)=randi ([1 3],1,1);
+%             %     end
+%             
+%             MTarryocupation (positiontran) = MTarryocupation (positiontran)+1;
+%             
+%             
+%             %   if lastnonzeromembranes(end)<lastnonzeroMT(end)
+%             %         testb =1
+%             %     end
+%             
+%         end
         
     case 1
         
@@ -461,7 +371,7 @@ if ocupationnumber(1)~=1
     ocupationnumber(1)=1;
     
 end
-[controldensitynew] =density_calculation(MTarryocupation,ocupationnumber,pos(end));
+% [controldensitynew] =density_calculation(MTarryocupation,ocupationnumber,pos(end));
 % if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
 %                 ocupationnumber =ocupationnumbertemp;
 %                  MTarryocupation =MTarryocupationtemp;
