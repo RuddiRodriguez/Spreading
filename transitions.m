@@ -17,6 +17,7 @@ postemp = pos(end);
 iarraysizetemp = iarraysize;
 ocupationnumbertemp  = ocupationnumber;
 MTarryocupationtemp = MTarryocupation;
+%% Transitions
 
 switch transitionkind
     case 3
