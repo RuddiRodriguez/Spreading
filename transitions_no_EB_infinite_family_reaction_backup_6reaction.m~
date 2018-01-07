@@ -6,7 +6,7 @@ function [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranfla
 % in each position the first rate is bound the second rate is unbound
 %(remaiinig 0 bound, remaining 1 , unbound)
 
-
+%% Lattice
 
 
 tranflag=0;
@@ -36,35 +36,42 @@ switch transitionkind
         [new_pos,iarraysize,ocupationnumber,tranflag] = diff_mem_left(new_pos,positiontran,ocupationnumber,...
     pos,iarraysize,matrix_tmemla,matrix_tmemlap1,MTarryocupation,controldensitynew,ocupationnumbertemp,tranflag);
         
-    case 5
-        [new_pos,iarraysize,ocupationnumber,MTarryocupation,controldensitynew] = diff_MT_right(new_pos,positiontran,ocupationnumber,...
-    lastnonzeroMT,pos,iarraysize,matrix_tMTla,matrix_tMTlap1,lastnonzeromembranes,MTarryocupation,controldensitynew);  
-
-    case 6
-         [new_pos,iarraysize,ocupationnumber,MTarryocupation] = diff_MT_left(new_pos,positiontran,ocupationnumber,...
-    lastnonzeroMT,pos,iarraysize,lastnonzeromembranes,MTarryocupation,controldensitynew);
-%         
+        
         
     case 2
         [new_pos,iarraysize,ocupationnumber,MTarryocupation] = bound_transition(new_pos,positiontran,ocupationnumber,...
     pos,iarraysize,matrix_tmemla,matrix_tmemlap1,MTarryocupation,matrix_tMTla,matrix_tMTlap1,lastnonzeroMT);
         
-%        
-    otherwise
-        [new_pos,iarraysize,ocupationnumber,MTarryocupation,status] = unbound_transition(new_pos,positiontran,ocupationnumber,...
-    pos,iarraysize,matrix_tmemla,matrix_tmemlap1,MTarryocupation,matrix_tMTla,matrix_tMTlap1,lastnonzeroMT,lastnonzeromembranes,status);
+%       
         
-  
+    case 1
+        
+     [new_pos,iarraysize,ocupationnumber,MTarryocupation,status] = unbound_transition(new_pos,positiontran,ocupationnumber,...
+    pos,iarraysize,matrix_tmemla,matrix_tmemlap1,MTarryocupation,matrix_tMTla,matrix_tMTlap1,lastnonzeroMT,lastnonzeromembranes,status);   
+      
+        
+    case 5
+        [new_pos,iarraysize,ocupationnumber,MTarryocupation,controldensitynew] = diff_MT_right(new_pos,positiontran,ocupationnumber,...
+    lastnonzeroMT,pos,iarraysize,matrix_tMTla,matrix_tMTlap1,lastnonzeromembranes,MTarryocupation,controldensitynew);
+%    
+        
+    otherwise
+        %Diffussion to the left on the microtubule
+        [new_pos,iarraysize,ocupationnumber,MTarryocupation] = diff_MT_left(new_pos,positiontran,ocupationnumber,...
+    lastnonzeroMT,pos,iarraysize,lastnonzeromembranes,MTarryocupation,controldensitynew);
+%         
 end
-%% 
 
-
+%   end
 
 if MTarryocupation(1)~=1
     MTarryocupation(1)=1;
     
 end
-
+if any (MTarryocupation<0)
+    testtt=1;
+    
+end
 
 
 if ocupationnumber(1)~=1
