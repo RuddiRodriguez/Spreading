@@ -2,7 +2,7 @@ function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector
     kappa,sigmai,maxsimutime,npin,density,initubel,densityindex)
 if nargin < 1 || isempty (kappa)
     
-    ratesi = [1.5 16.5 4745 4745 300 300];
+    ratesi = [0.1 0.1 4745 4745 300 300];
     %ratesi = [0.0050    0.0400   15.8167   15.8167    1.0000    1.0000];
     Pb = ratesi(1,2)./(ratesi(1,1)+ratesi(1,2));
     Pu = ratesi(1,1)./(ratesi(1,1)+ratesi(1,2));

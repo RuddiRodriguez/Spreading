@@ -56,14 +56,14 @@ end
 
 
 
-if MTarryocupation(1)~=1
+if MTarryocupation(1)==0
     MTarryocupation(1)=1;
     
 end
 
 
 
-if ocupationnumber(1)~=1
+if ocupationnumber(1)==0
     ocupationnumber(1)=1;
     
 end
