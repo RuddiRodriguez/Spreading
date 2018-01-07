@@ -1,5 +1,5 @@
 function [new_pos,iarraysize,ocupationnumber,MTarryocupation] = diff_MT_left(new_pos,positiontran,ocupationnumber,...
-    lastnonzeroMT,pos,iarraysize,lastnonzeromembranes,MTarryocupation,controldensitynew)
+    lastnonzeroMT,pos,iarraysize,lastnonzeromembranes,MTarryocupation,controldensitynew,MTarryocupationtemp)
 
 
 if  positiontran~=0 && positiontran~=1 && MTarryocupation (positiontran)==1

@@ -1,5 +1,5 @@
-function [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew] = transitions_no_EB_infinite_family_reaction_backup_6reaction(transitionkind,positiontran,ocupationnumber,MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,...
-    matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,ouft,inft,controldensitynew)
+function [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew] = transitions(transitionkind,positiontran,ocupationnumber,MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,...
+    matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,controldensitynew)
 %% Conditions for tubes growth , bound and unbound of peptides
 %1- the position of the transition is given by the integer part  of the
 % mnumber/number of transitions ---(2), the  transition is given by the remainig of division (remaiinig 0 bound, remaining 1 , unbound)
@@ -17,7 +17,7 @@ postemp = pos(end);
 iarraysizetemp = iarraysize;
 ocupationnumbertemp  = ocupationnumber;
 MTarryocupationtemp = MTarryocupation;
-ouft=ouft+0;inft=inft+0;
+
 switch transitionkind
     case 3
         %Diffusion on membrane-Diffusion to the right

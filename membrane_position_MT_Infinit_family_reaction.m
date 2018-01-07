@@ -221,8 +221,8 @@ while t <= t_final
 %         testb =1;
 %     end 
 
-        [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew ] = transitions_no_EB_infinite_family_reaction_backup_6reaction(transitionkind,positiontran,ocupationnumber,...
-            MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,ouft,inft,controldensity(end) );
+        [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew ] = transitions(transitionkind,positiontran,ocupationnumber,...
+            MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,controldensity(end) );
        if count ~=1
 %            MTocutemp = MTarryocupation(2:end);
 %     memocutemp = ocupationnumber(2:end);
