@@ -11,17 +11,26 @@ if  positiontran~=0 && positiontran~=1 && MTarryocupation (positiontran)==1
                 MTarryocupation (positiontran-1) =  MTarryocupation (positiontran-1)+1;
                 MTarryocupation (positiontran) = MTarryocupation (positiontran)-1;
             end
-            if  positiontran==2 && MTarryocupation (positiontran-1)<=5
-                MTarryocupation (positiontran) = MTarryocupation (positiontran)-1;
+            if  positiontran==2 && MTarryocupation (positiontran-1)<=50
+                MTarryocupation (positiontran) = MTarryocupation (positiontran)-0;
                 MTarryocupation (positiontran-1) =  MTarryocupation (positiontran-1)+1;
             end
-        end
-        [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
-        
-        if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
-            MTarryocupation =MTarryocupationtemp;
+            if  positiontran==1 
+                MTarryocupation (positiontran) = MTarryocupation (positiontran);
+                
+            end
             
         end
+%         [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
+%         
+%         if positiontran==2
+%             if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
+%                 MTarryocupation =MTarryocupation;
+%             else
+%                 MTarryocupation =MTarryocupation;
+%             end
+%             
+%         end
     catch err
         if isempty(lastnonzeromembranes)==1
             new_pos = pos(end) + 0;

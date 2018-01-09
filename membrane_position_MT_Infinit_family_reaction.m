@@ -190,8 +190,8 @@ while t <= t_final
     
     %% Plotting
        
-    if (mod(m,10000) == 0)
-        figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
+    if (mod(m,1000) == 0)
+ %        figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
         fprintf('%i\n',times(end));
     end
     

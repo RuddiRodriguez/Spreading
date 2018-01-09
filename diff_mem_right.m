@@ -18,10 +18,10 @@ if  positiontran~=0   && ocupationnumber (positiontran)~=0
     if positiontran == lastnonzeroMT(end)+1  && lastnonzeromembranes(end)<=lastnonzeroMT(end) &&ocupationnumber (positiontran+1)<=50
         ocupationnumber (positiontran:positiontran+1) = ocupationnumber (positiontran:positiontran+1)+matrix_tmemlap1 (3,:);
     end
-    [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
-    if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
-        ocupationnumber =ocupationnumbertemp;
-    end
+%     [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
+%     if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
+%         ocupationnumber =ocupationnumber;
+%     end
     tranflag=3;
 end
 end
