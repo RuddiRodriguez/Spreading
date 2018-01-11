@@ -25,7 +25,7 @@ end
 
 if nargin < 4
     
-    maxsimutime =20;
+    maxsimutime =30;
 end
 
 if nargin < 5
@@ -61,7 +61,7 @@ for j =1:length(kappa)
     for k =1:length(densityindex)
         k
         vinterp=0;
-        for i=1:5
+        for i=1:1
             [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp] = membrane_position_MT_Infinit_family_reaction (ratesi,...
                 kappa(j),sigmai,maxsimutime,npin,density(1),initubel,densityindex(k));
             

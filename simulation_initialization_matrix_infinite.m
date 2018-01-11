@@ -15,7 +15,7 @@ iarraysize = ceil(TubeLi/8);                                                    
 
 
 
-MTLi = 100000;                                                               %Microtbule length in nm
+MTLi = 2800;                                                               %Microtbule length in nm
 
 iMTLsize = MTLi/8;                                                          % Microtubule discretization
 
@@ -23,7 +23,7 @@ MTarryocupation = zeros (1,iMTLsize);                                       % Oc
 % MTarryocupationplot = ones (1,iMTLsize);
 
                                           % Initial number of peptides attached to the MT
-  densitys = 10000;
+  densitys = 1000;
 
 
 densityl = 2*pi*(r0_ini*1000000)*densitys;

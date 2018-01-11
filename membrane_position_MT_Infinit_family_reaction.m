@@ -154,6 +154,7 @@ while t <= t_final
                         
             [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew ] = transitions(transitionkind,positiontran,ocupationnumber,...
                 MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,controldensity(end) );
+            [controldensitynew] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
             if count ~=1
                                 
                 [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu);
@@ -190,8 +191,8 @@ while t <= t_final
     
     %% Plotting
        
-    if (mod(m,1000) == 0)
- %        figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
+    if (mod(m,10000) == 0)
+        % figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
         fprintf('%i\n',times(end));
     end
     
@@ -217,5 +218,5 @@ if status == 0
 end
 
 
-[vector,interpovar,vinterp] = sampling_data(times,pos,controldensity,50000,t_final);
+[vector,interpovar,vinterp] = sampling_data(times,pos,controldensity,100,t_final);
 end
