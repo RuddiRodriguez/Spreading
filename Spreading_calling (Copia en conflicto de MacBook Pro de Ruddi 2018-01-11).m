@@ -25,7 +25,7 @@ end
 
 if nargin < 4
     
-    maxsimutime =30;
+    maxsimutime =10;
 end
 
 if nargin < 5

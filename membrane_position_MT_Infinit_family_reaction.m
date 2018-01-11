@@ -152,9 +152,10 @@ while t <= t_final
             
             transitionkind = Imintau;
                         
-            [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew ] = transitions(transitionkind,positiontran,ocupationnumber,...
+            [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew,lastnonzeromembranes ] = transitions(transitionkind,positiontran,ocupationnumber,...
                 MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,controldensity(end) );
             [controldensitynew] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
+            [ocupationnumber,MTarryocupation,arrayrates,iMTLsize] = checking_size_matrix(ocupationnumber,MTarryocupation,arrayrates,lastnonzeromembranes);
             if count ~=1
                                 
                 [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu);

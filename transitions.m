@@ -1,4 +1,4 @@
-function [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew] = transitions(transitionkind,positiontran,ocupationnumber,MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,...
+function [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew,lastnonzeromembranes] = transitions(transitionkind,positiontran,ocupationnumber,MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,...
     matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,controldensitynew)
 %% Conditions for tubes growth , bound and unbound of peptides
 %1- the position of the transition is given by the integer part  of the
@@ -54,10 +54,11 @@ switch transitionkind
 end
 %% Adjusting parameters
 
-% if lastnonzeromembranes(end)>30
-%    ocupationnumberr=ocupationnumber(lastnonzeromembranes(end)-30+1:end);
-%     MTarryocupation=MTarryocupation(lastnonzeroMT(end)-30+1:end);
-% end
+ %if lastnonzeromembranes(end)>30
+     
+  %  ocupationnumber=ocupationnumber(lastnonzeromembranes(end)-30+1:end);
+   %  MTarryocupation=MTarryocupation(lastnonzeroMT(end)-30+1:end);
+ %end
 
 if MTarryocupation(1)==0
     MTarryocupation(1)=1;

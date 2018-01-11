@@ -15,7 +15,7 @@ iarraysize = ceil(TubeLi/8);                                                    
 
 
 
-MTLi = 2800;                                                               %Microtbule length in nm
+MTLi = 400;                                                               %Microtbule length in nm
 
 iMTLsize = MTLi/8;                                                          % Microtubule discretization
 

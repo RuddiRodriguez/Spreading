@@ -32,6 +32,7 @@ function [tau] = tau_calculation_family_reaction(tau,globalrate,r1)
 % %     tau(1,4)=(1/globalrate(1,4)).*log(1/r1(4));
 % %     tau(1,5)=(1/globalrate(1,5)).*log(1/r1(5));
 % %     tau(1,6)=(1/globalrate(1,6)).*log(1/r1(6));
+
     tau=(1./globalrate).*log(1./r1(1:end-1));
 % end
 end
