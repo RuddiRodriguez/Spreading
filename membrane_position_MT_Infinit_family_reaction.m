@@ -1,5 +1,5 @@
 function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp] = membrane_position_MT_Infinit_family_reaction (ratesi,...
-    kappa,sigmai,maxsimutime,npin,density,initubel,densityindex)
+    kappa,sigmai,maxsimutime,npin,density,initubel,densityindex,v)
 
 %%
 % this function try to simulate the membrane spreading using
@@ -113,7 +113,7 @@ while t <= t_final
     %% Rates Matrix initialization arrayrates is the propensity of the reaction
     %     ocupationnumber = gather (ocupationnumber);
     if count ==1
-        [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu);
+        [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu,v);
     end
     
     %% Global rate calculation
@@ -158,7 +158,7 @@ while t <= t_final
             [ocupationnumber,MTarryocupation,arrayrates,iMTLsize] = checking_size_matrix(ocupationnumber,MTarryocupation,arrayrates,lastnonzeromembranes);
             if count ~=1
                                 
-                [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu);
+                [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu,v);
                 
             end
             
@@ -195,6 +195,10 @@ while t <= t_final
     if (mod(m,10000) == 0)
         % figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
         fprintf('%i\n',times(end));
+         assignin('base', 'times', times);
+         assignin('base', 'pos', pos);
+         assignin('base', 'controldensity', controldensity);
+         
     end
     
     m=m+1;

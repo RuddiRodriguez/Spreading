@@ -1,0 +1,1 @@
+[pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp,vt,vtmean,results,kappa,density]= Spreading_calling;

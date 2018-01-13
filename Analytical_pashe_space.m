@@ -9,7 +9,7 @@ b = (8./1000);                    % reaction zone in um
 a = (8./1000)./13
 scale= (1).*1e-9;               % Barrier
 Temp = 1.381e-23.*307.15;       % Temperatue  kelvin
-kappa = [1 5 10 20 30 40 50].*1e-20;                  % Bending modulus
+kappa = [ 20 30 40 50].*1e-20;                  % Bending modulus
 sigmai = 2e-7;                   % Membrane tension
 R_ini  = 10.*1e-6; %+ (15e-6-5e-6).*rand(1,100);
 r0_ini  = sqrt(kappa./(2.*sigmai));
@@ -29,7 +29,7 @@ count=0;
 for j =1:length(kappa)
     count = count+1;
     V=0;
-    pos=0;
+    pos=0;posmt=0;
     counti=0;
 for i=2:length (t)
     counti=counti+1;
@@ -43,7 +43,10 @@ koofre = koff.*exp(((F0(i).*scale.*betat)./np(1)));
 V(i) = b.*((kon.*cl(1))-koofre);
  posmt (i)= posmt (i-1)+Vmt(1).*0.5;
 pos (i) = pos (i-1)+V(i).*0.5;
-orderp(i) =(posmt(i)-pos (i));%./posmt(i); 
+if pos (i)>posmt(i)
+    pos (i)=posmt(i);
+end
+orderp(i) =(posmt(i)-pos(i));%./posmt(i); 
 % if pos (i)<=0
 %     pos (i)=0;
 % end
@@ -51,7 +54,7 @@ orderp(i) =(posmt(i)-pos (i));%./posmt(i);
 end
 % orderp =(posmt-V)./posmt; 
 %  subplot (1,2,1)
-Fn=(F0./F0(2));
+Fn=(F0);
   plot1=plot (Fn(2:end),(orderp(2:end)),'LineWidth',2);hold on;
 %   subplot(1,2,2)
 %   plot (t(2:end),pos(2:end));hold on;
