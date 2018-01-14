@@ -68,6 +68,7 @@ globalrate = zeros (1,reactionn);
 tau = zeros (1,reactionn);
 m=0;
 Vm = 0.008*ratesi(1,2);
+tempp=0;
 
 %sigmao=ratesi (1,1);
 %post = zeros (1000,1);
@@ -155,7 +156,9 @@ while t <= t_final
             [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew,lastnonzeromembranes ] = transitions(transitionkind,positiontran,ocupationnumber,...
                 MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,controldensity(end) );
             [controldensitynew] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
-            [ocupationnumber,MTarryocupation,arrayrates,iMTLsize] = checking_size_matrix(ocupationnumber,MTarryocupation,arrayrates,lastnonzeromembranes);
+            if (lastnonzeromembranes(end)==length(ocupationnumber)-5)% || lastnonzeromembranes(end)>50)
+            [ocupationnumber,MTarryocupation,arrayrates,iMTLsize,tempp] = checking_size_matrix(ocupationnumber,MTarryocupation,arrayrates,lastnonzeromembranes,tempp);
+            end
             if count ~=1
                                 
                 [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu,v);
@@ -192,9 +195,9 @@ while t <= t_final
     
     %% Plotting
        
-    if (mod(m,10000) == 0)
+    if (mod(m,1000000) == 0)
         % figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
-        fprintf('%i\n',times(end));
+        fprintf('%4.2f\n',times(end));
          assignin('base', 'times', times);
          assignin('base', 'pos', pos);
          assignin('base', 'controldensity', controldensity);

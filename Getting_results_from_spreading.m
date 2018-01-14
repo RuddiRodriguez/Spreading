@@ -12,7 +12,7 @@ for t = 1:size(results,1)
         times=([results{t,1}(:,1)]); 
          controldensity=([results{t,1}(:,end)]); 
          plot(times,controldensity);hold on;
-         [vector,yy,vinterp] = sampling_data(times,pos-pos(1),controldensity,1,40);
+         [vector,yy,vinterp] = sampling_data(times,pos-pos(1),controldensity,1,70);
          vinterpto(t,1:length(vinterp))=vinterp;
     end
 end

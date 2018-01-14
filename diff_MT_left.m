@@ -11,7 +11,7 @@ if  positiontran~=0 && positiontran~=1 && MTarryocupation (positiontran)==1
                 MTarryocupation (positiontran-1) =  MTarryocupation (positiontran-1)+1;
                 MTarryocupation (positiontran) = MTarryocupation (positiontran)-1;
             end
-            if  positiontran==2 && MTarryocupation (positiontran-1)<=50
+            if  positiontran==2 && MTarryocupation (positiontran-1)<=5
                 MTarryocupation (positiontran) = MTarryocupation (positiontran)-0;
                 MTarryocupation (positiontran-1) =  MTarryocupation (positiontran-1)+1;
             end
