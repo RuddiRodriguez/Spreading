@@ -48,7 +48,7 @@ switch transitionkind
     otherwise
         %Unbound
         [new_pos,iarraysize,ocupationnumber,MTarryocupation,status] = unbound_transition(new_pos,positiontran,ocupationnumber,...
-            pos,iarraysize,matrix_tmemla,matrix_tmemlap1,MTarryocupation,matrix_tMTla,matrix_tMTlap1,lastnonzeroMT,lastnonzeromembranes,status);
+            pos,iarraysize,matrix_tmemla,matrix_tmemlap1,MTarryocupation,matrix_tMTla,matrix_tMTlap1,lastnonzeroMT,lastnonzeromembranes,status,MTarryocupationtemp);
         
         
 end
