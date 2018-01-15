@@ -104,7 +104,7 @@ while t <= t_final
         pos (end) = 0 ;
         break;
     end
-    [np,MTarryocupationtemp ] = initialization_infinite(ocupationnumber,numberpb,MTarryocupationtempindex(end-5:end),MTarryocupation);
+    [np,MTarryocupationtemp ] = initialization_infinite(ocupationnumber,numberpb,MTarryocupationtempindex,MTarryocupation);
    
     %% Tension renormalization
     [sigma] = ten_renormalization(sigmai,kappa,betat,r0_ini,R_ini,pos);
@@ -195,7 +195,7 @@ while t <= t_final
     
     %% Plotting
        
-    if (mod(m,10000) == 0)
+    if (mod(m,1000000) == 0)
         % figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
         fprintf('%4.2f\n',times(end));
         fprintf('%4.2f\n',t_final-times(end));
@@ -227,5 +227,5 @@ if status == 0
 end
 
 
-[vector,interpovar,vinterp] = sampling_data(times,pos,controldensity,5000,t_final);
+[vector,interpovar,vinterp] = sampling_data(times,pos,controldensity,100,t_final);
 end

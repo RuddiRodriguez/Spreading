@@ -12,6 +12,7 @@ function [np,MTarryocupationtemp ] = initialization_infinite(ocupationnumber,num
 %      MTLindexgpu=gpuArray  (MTLindex) ;
 %      MTarryocupationtempindexgpu=gpuArray(MTarryocupationtempindex);
     C = sort(MTarryocupationtempindex(ismembc(MTarryocupationtempindex,sort(MTLindex(MTLindex>0)))));
+    
     %C = tmp([~~diff(tmp),true]);
 %     C = intersect(MTarryocupationtempindex,MTLindex(MTLindex>0));
 %     CC = setdiff(MTarryocupationtempindex,MTLindex(MTLindex>0)); 
