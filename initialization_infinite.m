@@ -4,7 +4,7 @@ function [np,MTarryocupationtemp ] = initialization_infinite(ocupationnumber,num
 
      
     
-    
+   % spmd
     [~,colocunozero] = (find (ocupationnumber~=0));
     
     try 
@@ -35,6 +35,6 @@ function [np,MTarryocupationtemp ] = initialization_infinite(ocupationnumber,num
         
         np=np;
     end
-   
+    %end
 end
 

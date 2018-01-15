@@ -93,7 +93,7 @@ AL =(Tubeli/1000);
 controldensity=controldensity/AL;
 
 %% Loop
-
+% spmd
 while t <= t_final
     %% Simulation initialization
     
@@ -195,7 +195,7 @@ while t <= t_final
     
     %% Plotting
        
-    if (mod(m,10000) == 0)
+    if (mod(m,1000000) == 0)
         % figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
         fprintf('%4.2f\n',times(end));
         fprintf('%4.2f\n',t_final-times(end));
@@ -208,24 +208,27 @@ while t <= t_final
     m=m+1;
     
 end
-%  end
+%   end
 %% Checking times
-%  [post] = getting_var_smpd(pos);
-%  [taut] = getting_var_smpd(tau);
+%  [times] = getting_var_smpd(times);
+%  [pos] = getting_var_smpd(pos);
+%  [controldensity] = getting_var_smpd(controldensity);
+%  [t_final] = getting_var_smpd(t_final);
 
 
-if status == 0
-    td = 0;
-    while pos(end) >0.001
-        td = td +1;
-        new_pos = pos(end) * exp (-0.00005*td);
-        pos = [pos;new_pos];
-        
-    end
-    %  figure;plot(pos)
-    
-end
+
+% if status == 0
+%     td = 0;
+%     while pos(end) >0.001
+%         td = td +1;
+%         new_pos = pos(end) * exp (-0.00005*td);
+%         pos = [pos;new_pos];
+%         
+%     end
+%      figure;plot(pos)
+%     
+% end
 
 
-[vector,interpovar,vinterp] = sampling_data(times,pos,controldensity,5000,t_final);
+[vector,interpovar,vinterp] = sampling_data(times,pos,controldensity,500,t_final);
 end
