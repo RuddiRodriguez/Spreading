@@ -1,15 +1,15 @@
 % Parameter initialization 
 clear
-t = 0:0.5:920;                       % s
+t = 0:0.5:200;                       % s
 koff = 1.5;                     % 1/s
 kon = 0.16;                     % 1/um2s
 cl = [90];                       % # molecules / um2
 D = 2;                          % um2/s  
 b = (8./1000);                    % reaction zone in um 
 a = (8./1000)./13
-scale= (2).*1e-9;               % Barrier
+scale= (1).*1e-9;               % Barrier
 Temp = 1.381e-23.*307.15;       % Temperatue  kelvin
-kappa = [ 20 30 40 50].*1e-20;                  % Bending modulus
+kappa = [ 5].*1e-20;                  % Bending modulus
 sigmai = 2e-7;                   % Membrane tension
 R_ini  = 10.*1e-6; %+ (15e-6-5e-6).*rand(1,100);
 r0_ini  = sqrt(kappa./(2.*sigmai));
@@ -21,12 +21,12 @@ koofre=0;
 Vt=0;
 post=0;
 posmt = 0;
-Vmt = [3 ]./60;
+Vmt = [3 4 5 6 7 8 10]./60;
 %%
 %Calculations
 % figure(1) ;
 count=0;
-for j =1:length(kappa)
+for j =1:length(Vmt)
     count = count+1;
     V=0;
     pos=0;posmt=0;
@@ -34,14 +34,14 @@ for j =1:length(kappa)
 for i=2:length (t)
     counti=counti+1;
 betat = 1.0/Temp;
-beta_ini = ((4.*pi.*kappa(j)).*betat).*(r0_ini(1)./( R_ini(1).^2));          
+beta_ini = ((4.*pi.*kappa(1)).*betat).*(r0_ini(1)./( R_ini(1).^2));          
 sigma = sigmai.*exp (beta_ini.*(pos(end).*1e-6)); 
-F0(i)=(2.*pi.*sqrt(2.*kappa(j).*sigma));%+2.*pi*1.63e9*16e-18*(V(i).*1e-6)*(log(R_ini/r0_ini )); 
+F0(i)=(2.*pi.*sqrt(2.*kappa(1).*sigma));%+2.*pi*1.63e9*16e-18*(V(i).*1e-6)*(log(R_ini/r0_ini )); 
 koofre = koff.*exp(((F0(i).*scale.*betat)./np(1))); 
 %%
 %Equation
 V(i) = b.*((kon.*cl(1))-koofre);
- posmt (i)= posmt (i-1)+Vmt(1).*0.5;
+ posmt (i)= posmt (i-1)+Vmt(j).*0.5;
 pos (i) = pos (i-1)+V(i).*0.5;
 if pos (i)>posmt(i)
     pos (i)=posmt(i);
@@ -54,8 +54,8 @@ orderp(i) =(posmt(i)-pos(i));%./posmt(i);
 end
 % orderp =(posmt-V)./posmt; 
 %  subplot (1,2,1)
-Fn=(F0);
-  plot1=plot (Fn(2:end),(orderp(2:end)),'LineWidth',2);hold on;
+% Fn=(F0);
+%   plot1=plot (Fn(2:end),(orderp(2:end)),'LineWidth',2);hold on;
 %   subplot(1,2,2)
 %   plot (t(2:end),pos(2:end));hold on;
 
