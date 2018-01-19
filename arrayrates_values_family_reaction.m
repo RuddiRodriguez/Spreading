@@ -115,4 +115,4 @@ if size (arrayrates,1)==6
          arrayrates (6,1) = ratestemp56.*MTarryocupation(1);
        
 end
-end
+%end
