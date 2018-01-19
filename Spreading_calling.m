@@ -1,4 +1,4 @@
-function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp,vt,vtmean,results,kappa,density,densityindex]= Spreading_calling (ratesi,...
+function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp,vt,vtmean,results,kappa,density,densityindex,parameters]= Spreading_calling (ratesi,...
     kappa,sigmai,maxsimutime,npin,density,initubel,densityindex,v)
 clear
 if nargin < 1 || isempty (kappa)
@@ -58,24 +58,27 @@ end
 
 
 figure ;
-
+numsi=5;
 results = cell (3,length(densityindex),length(kappa));
+parameters = cell (numsi,length(densityindex),length(kappa)); 
 vt= 0 ;
 for j =1:length(kappa)
     j
     for k =1:length(densityindex)
         k
         vinterp=0;
-        for i=1:1
-              maxsimutime =20+(30-10)*rand(1,1);
-             sigmai = 5e-7+(3e-6-1e-7)*rand(1,1);
-            [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp] = membrane_position_MT_Infinit_family_reaction (ratesi,...
+        for i=1:numsi
+              maxsimutime =20+(30-20)*rand(1,1);
+             sigmai = 1e-7+(3e-6-1e-7)*rand(1,1);
+            [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp,R_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
                 kappa(j),sigmai,maxsimutime,npin,density(1),initubel,densityindex(k),v);
             
             i
             vt(1:length(vinterp),i) = vinterp;
             results {i,k,j} = vector;
+            parameters {i,k,j} = [sigmai maxsimutime R_ini];
             assignin('base', 'results', results)
+            assignin('base', 'parameters', parameters)
         end
         %vt (vt<=0)=NaN;
         vtmean(k,j)=nanmean(nanmean(vt));
