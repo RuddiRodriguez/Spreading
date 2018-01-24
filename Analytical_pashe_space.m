@@ -1,8 +1,8 @@
 % Parameter initialization 
 clear
-t = 0:0.5:200;                       % s
+t = 0:0.5:1000;                       % s
 koff = 1.5;                     % 1/s
-kon = 0.16;                     % 1/um2s
+kon = 0.12;                     % 1/um2s
 cl = [90];                       % # molecules / um2
 D = 2;                          % um2/s  
 b = (8./1000);                    % reaction zone in um 
@@ -11,17 +11,17 @@ scale= (1).*1e-9;               % Barrier
 Temp = 1.381e-23.*307.15;       % Temperatue  kelvin
 kappa = [ 5].*1e-20;                  % Bending modulus
 sigmai = 2e-7;                   % Membrane tension
-R_ini  = 10.*1e-6; %+ (15e-6-5e-6).*rand(1,100);
+R_ini  = 5.*1e-6; %+ (15e-6-5e-6).*rand(1,100);
 r0_ini  = sqrt(kappa./(2.*sigmai));
 Lc = (((Temp)./(4.*pi.*kappa)).*((R_ini.^2)./r0_ini)).*1e6;
-np = 1;
+np = 4;
 pos = 0;
 V= 0 ;
 koofre=0;
 Vt=0;
 post=0;
 posmt = 0;
-Vmt = [3 4 5 6 7 8 10]./60;
+Vmt = [3]./60;
 %%
 %Calculations
 % figure(1) ;
@@ -37,10 +37,10 @@ betat = 1.0/Temp;
 beta_ini = ((4.*pi.*kappa(1)).*betat).*(r0_ini(1)./( R_ini(1).^2));          
 sigma = sigmai.*exp (beta_ini.*(pos(end).*1e-6)); 
 F0(i)=(2.*pi.*sqrt(2.*kappa(1).*sigma));%+2.*pi*1.63e9*16e-18*(V(i).*1e-6)*(log(R_ini/r0_ini )); 
-koofre = koff.*exp(((F0(i).*scale.*betat)./np(1))); 
+koofre(i) = koff.*exp(((F0(i).*scale.*betat)./np(1))); 
 %%
 %Equation
-V(i) = b.*((kon.*cl(1))-koofre);
+V(i) = b.*((kon.*cl(1))-koofre(i));
  posmt (i)= posmt (i-1)+Vmt(j).*0.5;
 pos (i) = pos (i-1)+V(i).*0.5;
 if pos (i)>posmt(i)
@@ -55,7 +55,7 @@ end
 % orderp =(posmt-V)./posmt; 
 %  subplot (1,2,1)
 % Fn=(F0);
-%   plot1=plot (Fn(2:end),(orderp(2:end)),'LineWidth',2);hold on;
+   plot1=plot ((pos(2:end)),(koofre(2:end)),'LineWidth',2);hold on;
 %   subplot(1,2,2)
 %   plot (t(2:end),pos(2:end));hold on;
 

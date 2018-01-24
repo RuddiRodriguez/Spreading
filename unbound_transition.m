@@ -31,10 +31,11 @@ try
     if positiontran == lastnonzeroMT(end) && MTarryocupation (positiontran)==1 && ocupationnumber (positiontran)<5
         
         [~,colfinocup] = find (MTarryocupation==1);
-        if  length (colfinocup)<2
+        if  length (colfinocup)==1
             status = 0;
         end
-        if length(MTarryocupationtemp)>1
+        if length(MTarryocupation(MTarryocupation~=0))>1
+
             nextposition =colfinocup(end) - colfinocup(end-1);
         else
             nextposition=1 ;

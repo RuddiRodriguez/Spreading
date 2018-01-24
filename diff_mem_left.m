@@ -11,11 +11,11 @@ if  positiontran~=0   && ocupationnumber (positiontran)~=0
     if  positiontran~=1 && ocupationnumber (positiontran-1)<5 && positiontran~=2
         new_pos = pos(end) + 0;
         iarraysize = iarraysize+0 ;
-       % try
+        try
         ocupationnumber (positiontran-1:positiontran+1) = ocupationnumber (positiontran-1:positiontran+1)+matrix_tmemla (4,:);
-        %catch err
-         %   return
-        %end
+        catch err
+            return
+        end
         if positiontran==2 && ocupationnumber (positiontran-1)<5
             new_pos = pos(end) + 0;
             iarraysize = iarraysize+0 ;

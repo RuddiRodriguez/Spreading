@@ -1,5 +1,5 @@
-   function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp,R_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
-    kappa,sigmai,maxsimutime,npin,density,initubel,densityindex,v)
+   function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,yy,controldensity,vinterp,R_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
+    kappa,sigmai,maxsimutime,npin,density,initubel,densityindex,vm)
 
 %%
 % this function try to simulate the membrane spreading using
@@ -69,7 +69,7 @@ tau = zeros (1,reactionn);
 m=0;
 Vm = 0.008*ratesi(1,2);
 tempp=0;
-
+% vm=0.09
 %sigmao=ratesi (1,1);
 %post = zeros (1000,1);
 %[r1] = random_generator;
@@ -104,7 +104,7 @@ while t <= t_final
         pos (end) = 0 ;
         break;
     end
-    [np,MTarryocupationtemp ] = initialization_infinite(ocupationnumber,numberpb,MTarryocupationtempindex(end-5:end),MTarryocupation);
+    [np,MTarryocupationtemp ] = initialization_infinite_new(ocupationnumber(:),numberpb,MTarryocupationtempindex(:),MTarryocupation(:));
    
     %% Tension renormalization
     [sigma] = ten_renormalization(sigmai,kappa,betat,r0_ini,R_ini,pos);
@@ -114,7 +114,8 @@ while t <= t_final
     %% Rates Matrix initialization arrayrates is the propensity of the reaction
     %     ocupationnumber = gather (ocupationnumber);
     if count ==1
-        [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu,v);
+        [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu,vm);
+        
     end
     
     %% Global rate calculation
@@ -156,53 +157,75 @@ while t <= t_final
             [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew,lastnonzeromembranes ] = transitions(transitionkind,positiontran,ocupationnumber,...
                 MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,controldensity(end) );
             [controldensitynew] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
-            if (lastnonzeromembranes(end)==length(ocupationnumber)-5)% || lastnonzeromembranes(end)>50)
-            [ocupationnumber,MTarryocupation,arrayrates,iMTLsize,tempp] = checking_size_matrix(ocupationnumber,MTarryocupation,arrayrates,lastnonzeromembranes,tempp);
+            MTarryocupationtempindex = find(MTarryocupation~=0);
+    if isempty (MTarryocupationtempindex)
+        pos (end) = 0 ;
+        break;
+    end
+            if (lastnonzeromembranes(end)==length(ocupationnumber))% || lastnonzeromembranes(end)>50)
+%             [ocupationnumber,MTarryocupation,arrayrates,iMTLsize,tempp] = checking_size_matrix(ocupationnumber,MTarryocupation,arrayrates,lastnonzeromembranes,tempp);
+             %[ocupationnumber,MTarryocupation,arrayrates,iMTLsize] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates);
+             [ocupationnumber,MTarryocupation,arrayrates,iMTLsize] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates);
+             %[ocupationnumbertemp,MTarryocupationtemp,arrayratestemp,iMTLsize,tempp] = checking_size_matrix(ocupationnumber,MTarryocupation,arrayrates,lastnonzeromembranes,tempp);
             end
             if count ~=1
                                 
-                [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu,v);
+                [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu,vm);
                 
             end
             
         end
                 
     %% Checking to finish the loop
-    if status == 0
-        
-        break;
-    end
-    
-%     if isempty ( ocupationnumber)
-%         break;
-%     end
- %% Updating Outputs
-    
-    %order_P_new = new_posMTL-new_pos;
-    pos = [pos;new_pos];                                                    % update vector with all positions
-    %order_P = [order_P;order_P_new];
-    times = [times, t];
-    controldensity = [controldensity; controldensitynew];
-
-    if pos(end)<=0
-        %order_P = [order_P;order_P_new];
+    if status == 5
+     
         pos = [pos;new_pos];
         times = [times, t];
         controldensity = [controldensity; controldensitynew];
+         
         break;
     end
     
+    if isempty ( ocupationnumber)
+        break;
+    end
+    %% Updating Outputs
+   
     
+    pos = [pos;new_pos];                                                    % update vector with all positions
+    times = [times, t];
+    controldensity = [controldensity; controldensitynew];
+%     if pos(end)>0.1
+%         ss=1;
+%     end
+   
+
+    
+%     if pos(end)<0
+%         new_pos = 0;
+%         pos = [pos;new_pos];
+%         order_P = [order_P;order_P_new];
+%         MTL = [MTL;new_posMTL,];
+%         times = [times, t];
+%         controldensity = [controldensity; controldensitynew];
+%          
+% %         break;
+% 
+%     end
+%     
     %% Plotting
-       
-    if (mod(m,1000000) == 0)
-        % figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
+    
+   if (mod(m,1000000) == 0)
+           % figure_control(pos,MTL,count,times,v,controldensity,subplot1,subplot2,subplot3,subplot4);
+            % figure (1);plot(pos(count),rates(1,1),'o');hold off
+%           drawnow;
+         
         fprintf('%4.2f\n',times(end));
         fprintf('%4.2f\n',t_final-times(end));
          assignin('base', 'times', times);
          assignin('base', 'pos', pos);
          assignin('base', 'controldensity', controldensity);
-         
+        
     end
     
     m=m+1;
@@ -210,25 +233,22 @@ while t <= t_final
 end
 %   end
 %% Checking times
-%  [times] = getting_var_smpd(times);
-%  [pos] = getting_var_smpd(pos);
-%  [controldensity] = getting_var_smpd(controldensity);
-%  [t_final] = getting_var_smpd(t_final);
+%  [post] = getting_var_smpd(pos);
+%  [taut] = getting_var_smpd(tau);
 
 
+if status == 5
+    td = 0;
+    while pos(end) >0.001
+        td = td +1;
+        new_pos = pos(end) * exp (-0.00005*td);
+        pos = [pos;new_pos];
+        
+    end
+    %  figure;plot(pos)
+    
+end
 
-% if status == 0
-%     td = 0;
-%     while pos(end) >0.001
-%         td = td +1;
-%         new_pos = pos(end) * exp (-0.00005*td);
-%         pos = [pos;new_pos];
-%         
-%     end
-%      figure;plot(pos)
-%     
-% end
 
-
-[vector,interpovar,vinterp] = sampling_data(times,pos,controldensity,500,t_final);
+[vector,yy,vinterp,~] = sampling_data(times,pos,controldensity,500,t_final);
 end

@@ -1,6 +1,5 @@
-function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp,vt,vtmean,results,kappa,density,densityindex,parameters]= Spreading_calling (ratesi,...
-    kappa,sigmai,maxsimutime,npin,density,initubel,densityindex,v)
-clear
+function [pos,times,arrayrates,MTarryocupation,ocupationnumber,vector,controldensity,vinterp,results, parameters]= Spreading_calling (ratesi,...
+    kappa,sigmai,maxsimutime,npin,density,initubel,densityindex)
 if nargin < 1 || isempty (kappa)
     
     ratesi = [1.5 16.5 3500 3500 500 500];
@@ -21,17 +20,17 @@ end
 
 if nargin < 3 || isempty (sigmai)
     
-    sigmai = 2e-7;
+    sigmai = 4e-6;
 end
 
 if nargin < 4
     
-    maxsimutime =2;
+    maxsimutime =70;
 end
 
 if nargin < 5
     
-    npin = 4;
+    npin = 1;
 end
 
 if nargin < 6
@@ -58,30 +57,33 @@ end
 
 
 figure ;
-numsi=5;
-results = cell (3,length(densityindex),length(kappa));
+numsi=10;
+results = cell (numsi,length(densityindex),length(kappa));
+MTLent= cell (numsi,length(densityindex),length(kappa)); 
 parameters = cell (numsi,length(densityindex),length(kappa)); 
 vt= 0 ;
 for j =1:length(kappa)
     j
     for k =1:length(densityindex)
-        k
+       
         vinterp=0;
         for i=1:numsi
-              maxsimutime =20+(30-20)*rand(1,1);
-             sigmai = 1e-7+(3e-6-1e-7)*rand(1,1);
-            [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,interpovar,controldensity,vinterp,R_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
+              % maxsimutime =80+(120-80)*rand(1,1);
+            sigmai = 3e-7+(2e-6-3e-7)*rand(1,1);
+            npin = randi([1 3],1,1);
+            [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,yy,controldensity,vinterp,R_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
                 kappa(j),sigmai,maxsimutime,npin,density(1),initubel,densityindex(k),v);
             
             i
-            vt(1:length(vinterp),i) = vinterp;
+           
             results {i,k,j} = vector;
-            parameters {i,k,j} = [sigmai maxsimutime R_ini];
-            assignin('base', 'results', results)
+            parameters {i,k,j} = [sigmai maxsimutime R_ini npin];
+            assignin('base', 'results', results);
+            assignin('base', 'MTLent',  MTLent);
             assignin('base', 'parameters', parameters)
         end
         %vt (vt<=0)=NaN;
-        vtmean(k,j)=nanmean(nanmean(vt));
+%         vtmean(k,j)=nanmean(nanmean(vt));
 %         stdmean (k,j)
     end
 end

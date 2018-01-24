@@ -54,20 +54,22 @@ switch transitionkind
 end
 %% Adjusting parameters
 
- %if lastnonzeromembranes(end)>30
-     
-  %  ocupationnumber=ocupationnumber(lastnonzeromembranes(end)-30+1:end);
-   %  MTarryocupation=MTarryocupation(lastnonzeroMT(end)-30+1:end);
- %end
+if new_pos<0
+    new_pos=0;
+end
+% if new_pos>new_posMTL
+%     new_pos=pos(end) + 0;
+% end
+if lastnonzeromembranes(end)~=(lastnonzeroMT(end)+1)
+     ocupationnumber(lastnonzeroMT(end)+2:end)=0;
+end
 
-if MTarryocupation(1)==0
+if MTarryocupation(1)~=1
     MTarryocupation(1)=1;
     
 end
 
-
-
-if ocupationnumber(1)==0
+if ocupationnumber(1)~=1
     ocupationnumber(1)=1;
     
 end

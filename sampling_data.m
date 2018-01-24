@@ -1,4 +1,4 @@
-function [vector,yy,vinterp] = sampling_data(times,pos,controldensity,inter,tmax)
+function [vector,yy,vinterp,timeinter] = sampling_data(times,pos,controldensity,inter,tmax)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 post = pos (1:inter:end);
@@ -14,7 +14,7 @@ catch err
     pos = pos(1:length(times));
 end
 %timeinter = 0:3:tmax;
-timeinter = 0:1:max(T);
+timeinter = 0:3:max(T);
 [yy] = interp_nonunique(T,post(1:length(T)),timeinter);
 %yy = interp1(times,pos(1:length(times)),timeinter);
 
