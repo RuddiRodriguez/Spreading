@@ -11,7 +11,7 @@ if  positiontran~=0 && positiontran~=1 && MTarryocupation (positiontran)==1
                 MTarryocupation (positiontran-1) =  MTarryocupation (positiontran-1)+1;
                 MTarryocupation (positiontran) = MTarryocupation (positiontran)-1;
             end
-            if  positiontran==2 && MTarryocupation (positiontran-1)<=5
+            if  positiontran==2 && MTarryocupation (positiontran-1)<=50
                 MTarryocupation (positiontran) = MTarryocupation (positiontran)-0;
                 MTarryocupation (positiontran-1) =  MTarryocupation (positiontran-1)+1;
             end
@@ -25,7 +25,7 @@ if  positiontran~=0 && positiontran~=1 && MTarryocupation (positiontran)==1
 %         
 %         if positiontran==2
 %             if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
-%                 MTarryocupation =MTarryocupation;
+%                 MTarryocupation =,MTarryocupationtemp;
 %             else
 %                 MTarryocupation =MTarryocupation;
 %             end
