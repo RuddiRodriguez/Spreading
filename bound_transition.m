@@ -24,7 +24,7 @@ if positiontran~=0 && positiontran == lastnonzeroMT(end)+1
     iarraysize = iarraysize+1 ;
     ocupationnumber(positiontran)=ocupationnumber(positiontran)-1;
     ocupationnumber(2:positiontran+1)=ocupationnumber(1:positiontran);
-     ocupationnumber(2)=ocupationnumber(2)+randi([-1 1],1,1);
+     ocupationnumber(2)=ocupationnumber(2)+randi([-1 2],1,1);
     MTarryocupation (positiontran) = MTarryocupation (positiontran)+1;
     
 end

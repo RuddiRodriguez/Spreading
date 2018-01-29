@@ -23,7 +23,7 @@ MTarryocupation = zeros (1,iMTLsize);                                       % Oc
 % MTarryocupationplot = ones (1,iMTLsize);
 
                                           % Initial number of peptides attached to the MT
-  densitys = 100;
+  densitys = 45;
 
 
 densityl = 2*pi*(r0_ini*1000000)*densitys;
