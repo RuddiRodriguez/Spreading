@@ -169,7 +169,7 @@ while t <= t_final
             if (lastnonzeromembranes(end)==length(ocupationnumber))% || lastnonzeromembranes(end)>50)
 %             [ocupationnumber,MTarryocupation,arrayrates,iMTLsize,tempp] = checking_size_matrix(ocupationnumber,MTarryocupation,arrayrates,lastnonzeromembranes,tempp);
              %[ocupationnumber,MTarryocupation,arrayrates,iMTLsize] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates);
-             %[ocupationnumber,MTarryocupation,arrayrates,iMTLsize,ocupationnumbertotal,MTarryocupationttotal] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates,ocupationnumbertotal,MTarryocupationttotal);
+             [ocupationnumber,MTarryocupation,arrayrates,iMTLsize,ocupationnumbertotal,MTarryocupationttotal] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates,ocupationnumbertotal,MTarryocupationttotal);
              %[ocupationnumbertemp,MTarryocupationtemp,arrayratestemp,iMTLsize,tempp] = checking_size_matrix(ocupationnumber,MTarryocupation,arrayrates,lastnonzeromembranes,tempp);
                 counttotal=counttotal+1;
                 [ocupationnumber,MTarryocupation,arrayrates,iMTLsize,ocupationnumbertotal,MTarryocupationttotal] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates,counttotal,ocupationnumbertotal,MTarryocupationttotal);
