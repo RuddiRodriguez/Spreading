@@ -157,10 +157,13 @@ while t <= t_final
             positiontran = mnumber;
             
             transitionkind = Imintau;
-                        
+              [controldensitynet] =density_calculation(MTarryocupation(2:end),ocupationnumber(2:end),new_pos);          
             [ ocupationnumber,MTarryocupation,new_pos,pos,iarraysize,status,tranflag,controldensitynew,lastnonzeromembranes ] = transitions(transitionkind,positiontran,ocupationnumber,...
                 MTarryocupation,MTarryocupationtemp,new_pos,pos,iarraysize,matrix_tmemla,matrix_tMTla,matrix_tmemlap1,matrix_tMTlap1,controldensity(end) );
-            [controldensitynew] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
+            [controldensitynew] =density_calculation(MTarryocupation(2:end),ocupationnumber(2:end),new_pos);
+            if controldensitynew ~=(controldensitynet) 
+                test=1;
+            end
             MTarryocupationtempindex = find(MTarryocupation~=0);
     if isempty (MTarryocupationtempindex)
         pos (end) = 0 ;
@@ -256,5 +259,5 @@ if status == 5
 end
 
 
-[vector,yy,vinterp,~] = sampling_data(times,pos,controldensity,500,t_final);
+[vector,yy,vinterp,~] = sampling_data(times,pos,500,t_final);
 end
