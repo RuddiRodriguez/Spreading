@@ -1,4 +1,4 @@
-function [ocupationnumbertemp,MTarryocupationtemp,arrayratestemp,iMTLsize] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates)
+function [ocupationnumbertemp,MTarryocupationtemp,arrayratestemp,iMTLsize,ocupationnumbertotal,MTarryocupationttotal] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates,counttotal,ocupationnumbertotal,MTarryocupationttotal)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -32,6 +32,8 @@ function [ocupationnumbertemp,MTarryocupationtemp,arrayratestemp,iMTLsize] = che
         pos (end) = 0 ;
         tess=1;
     end
+ocupationnumbertotal(counttotal,1:length(ocupationnumber)) = ocupationnumber;
+MTarryocupationttotal(counttotal,1:length(MTarryocupation)) = MTarryocupation;
 
 
 iMTLsize=length(ocupationnumbertemp);
