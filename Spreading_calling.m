@@ -47,7 +47,7 @@ if nargin < 8
 end
 if nargin < 9
     
-    v = 0.1 ;                                                         %particles per um2
+    v = 0.15 ;                                                         %particles per um2
 end
 %% 
 
@@ -57,10 +57,10 @@ end
 
 
 figure ;
-numsi=10;
+
 numsi=1;
 results = cell (numsi,length(densityindex),length(kappa));
-MTLent= cell (numsi,length(densityindex),length(kappa)); 
+
 parameters = cell (numsi,length(densityindex),length(kappa)); 
 vt= 0 ;
 for j =1:length(kappa)
@@ -79,10 +79,10 @@ for j =1:length(kappa)
             i
            
             results {i,k,j} = vector;
-            parameters {i,k,j} = [sigmai maxsimutime R_ini npin];
+            
             parameters {i,k,j} = [sigmai maxsimutime R_ini npin r0_ini];
             assignin('base', 'results', results);
-            assignin('base', 'MTLent',  MTLent);
+            
             assignin('base', 'parameters', parameters)
         end
         %vt (vt<=0)=NaN;
