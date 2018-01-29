@@ -1,4 +1,5 @@
    function [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,yy,controldensity,vinterp,R_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
+   function [pos,times,globalrate,arrayrates,MTarryocupationttotal,ocupationnumbertotal,vector,yy,controldensity,vinterp,R_ini,r0_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
     kappa,sigmai,maxsimutime,npin,density,initubel,densityindex,vm)
 
 %%
@@ -69,6 +70,9 @@ tau = zeros (1,reactionn);
 m=0;
 Vm = 0.008*ratesi(1,2);
 tempp=0;
+counttotal=0;
+ocupationnumbertotal=0;
+MTarryocupationttotal=0;
 % vm=0.09
 %sigmao=ratesi (1,1);
 %post = zeros (1000,1);
@@ -167,6 +171,8 @@ while t <= t_final
              %[ocupationnumber,MTarryocupation,arrayrates,iMTLsize] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates);
              [ocupationnumber,MTarryocupation,arrayrates,iMTLsize] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates);
              %[ocupationnumbertemp,MTarryocupationtemp,arrayratestemp,iMTLsize,tempp] = checking_size_matrix(ocupationnumber,MTarryocupation,arrayrates,lastnonzeromembranes,tempp);
+                counttotal=counttotal+1;
+                [ocupationnumber,MTarryocupation,arrayrates,iMTLsize,ocupationnumbertotal,MTarryocupationttotal] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates,counttotal,ocupationnumbertotal,MTarryocupationttotal);
             end
             if count ~=1
                                 

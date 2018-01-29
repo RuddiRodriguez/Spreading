@@ -33,6 +33,7 @@ try
         [~,colfinocup] = find (MTarryocupation==1);
         if  length (colfinocup)==1
             status = 0;
+             nextposition=colfinocup;
         end
         if length(MTarryocupation(MTarryocupation~=0))>1
 

@@ -15,15 +15,15 @@ iarraysize = ceil(TubeLi/8);                                                    
 
 
 
-MTLi = 400;                                                               %Microtbule length in nm
+MTLi =400;                                                               %Microtbule length in nm
 
-iMTLsize = MTLi/8;                                                          % Microtubule discretization
+iMTLsize = (MTLi/8);                                                          % Microtubule discretization
 
 MTarryocupation = zeros (1,iMTLsize);                                       % Ocupation number intitialization MT
 % MTarryocupationplot = ones (1,iMTLsize);
 
                                           % Initial number of peptides attached to the MT
-  densitys = 10000;
+  densitys = 100;
 
 
 densityl = 2*pi*(r0_ini*1000000)*densitys;
@@ -48,14 +48,14 @@ numberu = (ceil(densitylu*(initubel/1000)))-0;
 
 ocupationnumber = zeros(1,iMTLsize);                                        % Initial number  of peptides in the reaction area on the tube
 
- indexocup = randi ([1 (iarraysize)],1,length(numberutemp));
+ indexocup = randi ([2 (iarraysize)],1,length(numberutemp));
  if numberu>(iarraysize) %|| isnan(numberu)||numberu==0
  ocupationnumber (1:iarraysize) = 1;
  else
     ocupationnumber (indexocup) = numberutemp;%randi ([0 density],1,length(indexocup)); 
  end
  
- ocupationnumber (iarraysize+1) = randi ([1 3],1,1); 
+ ocupationnumber (iarraysize+1) = randi ([3 3],1,1); 
  ocupationnumber (1) = 1;
  
  indexocupMT = randi ([1 (iarraysize)],1,length(numberbtemp));

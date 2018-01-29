@@ -58,6 +58,7 @@ end
 
 figure ;
 numsi=10;
+numsi=1;
 results = cell (numsi,length(densityindex),length(kappa));
 MTLent= cell (numsi,length(densityindex),length(kappa)); 
 parameters = cell (numsi,length(densityindex),length(kappa)); 
@@ -72,12 +73,14 @@ for j =1:length(kappa)
             sigmai = 3e-7+(2e-6-3e-7)*rand(1,1);
             npin = randi([1 3],1,1);
             [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,yy,controldensity,vinterp,R_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
+            [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,yy,controldensity,vinterp,R_ini,r0_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
                 kappa(j),sigmai,maxsimutime,npin,density(1),initubel,densityindex(k),v);
             
             i
            
             results {i,k,j} = vector;
             parameters {i,k,j} = [sigmai maxsimutime R_ini npin];
+            parameters {i,k,j} = [sigmai maxsimutime R_ini npin r0_ini];
             assignin('base', 'results', results);
             assignin('base', 'MTLent',  MTLent);
             assignin('base', 'parameters', parameters)
