@@ -3,3 +3,4 @@
  [parameterst] = getting_var_smpd(parameters);
   [ocupationnumbert] = getting_var_smpd(ocupationnumber);
    [MTarryocupationt] = getting_var_smpd(MTarryocupation);
+   density_estimation;

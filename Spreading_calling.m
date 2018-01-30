@@ -1,4 +1,4 @@
-function [pos,times,arrayrates,MTarryocupation,ocupationnumber,vector,controldensity,vinterp,results, parameters]= Spreading_calling (ratesi,...
+function [pos,times,arrayrates,MTarryocupationt,ocupationnumbert,vector,controldensity,vinterp,results, parameters]= Spreading_calling (ratesi,...
     kappa,sigmai,maxsimutime,npin,density,initubel,densityindex)
 if nargin < 1 || isempty (kappa)
     
@@ -25,7 +25,7 @@ end
 
 if nargin < 4
     
-    maxsimutime =20;
+    maxsimutime =50;
 end
 
 if nargin < 5
@@ -47,7 +47,7 @@ if nargin < 8
 end
 if nargin < 9
     
-    v = 0.15 ;                                                         %particles per um2
+    v = 0.000001 ;                                                         %particles per um2
 end
 %% 
 
@@ -62,6 +62,8 @@ numsi=1;
 results = cell (numsi,length(densityindex),length(kappa));
 
 parameters = cell (numsi,length(densityindex),length(kappa)); 
+MTarryocupationt = cell (numsi,length(densityindex),length(kappa));
+ocupationnumbert = cell (numsi,length(densityindex),length(kappa));
 vt= 0 ;
 for j =1:length(kappa)
     j
@@ -79,6 +81,8 @@ for j =1:length(kappa)
             i
            
             results {i,k,j} = vector;
+            MTarryocupationt{i,k,j} = MTarryocupation;
+            ocupationnumbert{i,k,j} = ocupationnumber;
             
             parameters {i,k,j} = [sigmai maxsimutime R_ini npin r0_ini];
             assignin('base', 'results', results);

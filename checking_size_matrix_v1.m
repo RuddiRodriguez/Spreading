@@ -27,11 +27,11 @@ function [ocupationnumbertemp,MTarryocupationtemp,arrayratestemp,iMTLsize,ocupat
 %     arrayratestemp = arrayratestemp;
 
 
- MTarryocupationtempindex = find(MTarryocupation~=0);
-    if isempty (MTarryocupationtempindex)
-        pos (end) = 0 ;
-        tess=1;
-    end
+%  MTarryocupationtempindex = find(MTarryocupation~=0);
+%     if isempty (MTarryocupationtempindex)
+%         pos (end) = 0 ;
+%         tess=1;
+%     end
 ocupationnumbertotal(counttotal,1:length(ocupationnumber)) = ocupationnumber;
 MTarryocupationttotal(counttotal,1:length(MTarryocupation)) = MTarryocupation;
 

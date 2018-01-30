@@ -31,7 +31,7 @@ switch transitionkind
     case 5
         %Diffussion to the right on the microtubule
         [new_pos,iarraysize,ocupationnumber,MTarryocupation,controldensitynew] = diff_MT_right(new_pos,positiontran,ocupationnumber,...
-            lastnonzeroMT,pos,iarraysize,matrix_tMTla,matrix_tMTlap1,lastnonzeromembranes,MTarryocupation,controldensitynew);
+            lastnonzeroMT,pos,iarraysize,matrix_tMTla,matrix_tMTlap1,lastnonzeromembranes,MTarryocupation,controldensitynew,MTarryocupationtemp);
         
     case 6
         %Diffussion to the left on the microtubule

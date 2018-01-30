@@ -1,10 +1,10 @@
 % profile on ;
 %t = tic();
-% spmd
+  spmd
 [pos,times,arrayrates,MTarryocupation,ocupationnumber,vector,controldensity,vinterp,results, parameters]= Spreading_calling;
-% end
+  end
 %cpuTime = toc( t );
-% after_smpd; 
+  after_smpd; 
 % profile off ;profile viewer
 
 

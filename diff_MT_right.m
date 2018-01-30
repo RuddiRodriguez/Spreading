@@ -1,5 +1,5 @@
 function [new_pos,iarraysize,ocupationnumber,MTarryocupation,controldensitynew] = diff_MT_right(new_pos,positiontran,ocupationnumber,...
-    lastnonzeroMT,pos,iarraysize,matrix_tMTla,matrix_tMTlap1,lastnonzeromembranes,MTarryocupation,controldensitynew)
+    lastnonzeroMT,pos,iarraysize,matrix_tMTla,matrix_tMTlap1,lastnonzeromembranes,MTarryocupation,controldensitynew,MTarryocupationtemp)
 %Diffusion to the right for the petides on the MT
 
 %try
@@ -16,13 +16,14 @@ function [new_pos,iarraysize,ocupationnumber,MTarryocupation,controldensitynew] 
                 MTarryocupation (positiontran:positiontran+1) = MTarryocupation (positiontran:positiontran+1)+matrix_tMTlap1 (5,:);
                 
             end
-            
-            [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
-            
-            if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
-                MTarryocupation =MTarryocupationtemp;
-                
-            end
+%             if positiontran==1
+%             [controldensityneww] =density_calculation(MTarryocupation,ocupationnumber,new_pos);
+%             
+%             if controldensityneww <=(controldensitynew-5) || controldensityneww >=(controldensitynew+5)
+%                 MTarryocupation =MTarryocupationtemp;
+%                 
+%             end
+%             end
        % catch err
             if isempty(lastnonzeromembranes)==1
                 new_pos = pos(end) + 0;
