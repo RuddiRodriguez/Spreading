@@ -6,7 +6,7 @@ betat = 1.0/Temp;                                                            % I
 
 koof = ratesi(1,1);                                                         % off-rate
 
-R_ini  = 5e-6+((10e-6)-(5e-6))*rand(1,1);                                   % Vesicles radius
+R_ini  = 5e-6+((7e-6)-(5e-6))*rand(1,1);                                   % Vesicles radius
 
 r0_ini  = sqrt(kappa./(2.*sigmai));                                         % Tubes radius
 

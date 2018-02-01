@@ -235,8 +235,8 @@ while t <= t_final
     %
     %% Plotting
     
-    if (mod(m,1000000) == 0)
-           %figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
+    if (mod(m,10000) == 0)
+           figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
         % figure (1);plot(pos(count),rates(1,1),'o');hold off
         %           drawnow;
         
@@ -270,5 +270,5 @@ end
 % end
 
 
-[vector,yy,vinterp,~] = sampling_data(times,pos,controldensity,500,t_final);
+[vector,yy,vinterp,~] = sampling_data(times,pos,2,t_final);
 end
