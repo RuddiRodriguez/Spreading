@@ -1,6 +1,8 @@
 fid = fopen( 'myFile.txt', 'w' ) ;
  for cId = 1 : numel( vinterpto )
-    fprintf( fid, '%f ', vinterpto{cId} ) ;
+     data = vinterpto{cId};
+     data (data<0)=NaN;
+    fprintf( fid, '%f ', data ) ;
     fprintf( fid, '\n' ) ;
  end
  fclose( fid ) ;

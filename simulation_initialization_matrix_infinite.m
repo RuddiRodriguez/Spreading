@@ -15,7 +15,7 @@ iarraysize = ceil(TubeLi/8);                                                    
 
 
 
-MTLi =400;                                                               %Microtbule length in nm
+MTLi =240;                                                               %Microtbule length in nm
 
 iMTLsize = (MTLi/8);                                                          % Microtubule discretization
 
@@ -23,7 +23,7 @@ MTarryocupation = zeros (1,iMTLsize);                                       % Oc
 % MTarryocupationplot = ones (1,iMTLsize);
 
                                           % Initial number of peptides attached to the MT
-  densitys = 300;
+  densitys =300;
 
 
 densityl = 2*pi*(r0_ini*1000000)*densitys;
@@ -69,8 +69,8 @@ ocupationnumber = zeros(1,iMTLsize);                                        % In
   MTarryocupation (1) = 1;
  end
 
-% densitylb = sum( MTarryocupation(2:end))/(initubel/1000);
-% densitylu =sum(ocupationnumber(2:end) )/(initubel/1000);
+ densitylb = sum( MTarryocupation(2:end))/(initubel/1000);
+ densitylu =sum(ocupationnumber(2:end) )/(initubel/1000);
 %  
  
 % ocupationnumber (1:iarraysize+1) = randi ([0 1],1,iarraysize+1);  

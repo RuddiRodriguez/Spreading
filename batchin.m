@@ -7,4 +7,6 @@
   after_smpd; 
 % profile off ;profile viewer
 
+Getting_results_from_spreading;
 
+saving_to_txtfile

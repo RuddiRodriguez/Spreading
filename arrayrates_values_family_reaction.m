@@ -46,7 +46,7 @@ if count==1
     
     
     %try
-    if length (MTarryocupationtemp)> numberpb && positiontran~=1 && positiontran~=0 && positiontran~=50
+    if length (MTarryocupationtemp)> numberpb && positiontran~=1 && positiontran~=0 && positiontran~=30
         
         
         if tranflag==3 || tranflag==3
@@ -82,7 +82,7 @@ if count==1
 %         return;
 %     end
 
-if length (MTarryocupationtemp)> numberpb && positiontran~=1 && positiontran~=0 && positiontran==50
+if length (MTarryocupationtemp)> numberpb && positiontran~=1 && positiontran~=0 && positiontran==30
         
         
         if tranflag==3 || tranflag==3

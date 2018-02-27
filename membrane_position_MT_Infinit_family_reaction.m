@@ -1,5 +1,4 @@
-   
-function [pos,times,globalrate,arrayrates,MTarryocupationttotal,ocupationnumbertotal,vector,yy,controldensity,vinterp,R_ini,r0_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
+ function [pos,times,globalrate,arrayrates,MTarryocupationttotal,ocupationnumbertotal,vector,yy,controldensity,vinterp,R_ini,r0_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
     kappa,sigmai,maxsimutime,npin,density,initubel,densityindex,vm)
 
 %%
