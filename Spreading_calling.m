@@ -2,7 +2,7 @@ function [pos,times,arrayrates,MTarryocupationt,ocupationnumbert,vector,controld
     kappa,sigmai,maxsimutime,npin,density,initubel,densityindex)
 if nargin < 1 || isempty (kappa)
     
-    ratesi = [1.6 56 10000 10000 600 600];
+    ratesi = [1.6 16 20000 20000 500 500];
     %ratesi = [0.0050    0.0400   15.8167   15.8167    1.0000    1.0000];
     Pb = ratesi(1,2)./(ratesi(1,1)+ratesi(1,2));
     Pu = ratesi(1,1)./(ratesi(1,1)+ratesi(1,2));
@@ -47,7 +47,7 @@ if nargin < 8
 end
 if nargin < 9
     
-    v = 0.1 ;                                                         %particles per um2
+    v = 0 ;                                                         %particles per um2
 end
 %% 
 
@@ -58,22 +58,23 @@ end
 
 figure ;
 
-numsi=5;
+numsi=1;
 results = cell (numsi,length(densityindex),length(kappa));
 
 parameters = cell (numsi,length(densityindex),length(kappa)); 
 MTarryocupationt = cell (numsi,length(densityindex),length(kappa));
 ocupationnumbert = cell (numsi,length(densityindex),length(kappa));
-vt= 0 ;
+vt= 0.1 ;
 for j =1:length(kappa)
     j
     for k =1:length(densityindex)
        
         vinterp=0;
         for i=1:numsi
-%               maxsimutime =80+(100-80)*rand(1,1);
-         sigmai = 5e-7+(5e-6-5e-7)*rand(1,1);
+            maxsimutime =80+(120-80)*rand(1,1);
+            %sigmai = 3e-7+(5e-6-3e-7)*rand(1,1);
             npin = randi([1 3],1,1);
+             sigmai =8e-8+3e-7.*rand(1,1);
             
             [pos,times,globalrate,arrayrates,MTarryocupation,ocupationnumber,vector,yy,controldensity,vinterp,R_ini,r0_ini] = membrane_position_MT_Infinit_family_reaction (ratesi,...
                 kappa(j),sigmai,maxsimutime,npin,density(1),initubel,densityindex(k),v);

@@ -23,7 +23,7 @@ MTarryocupation = zeros (1,iMTLsize);                                       % Oc
 % MTarryocupationplot = ones (1,iMTLsize);
 
                                           % Initial number of peptides attached to the MT
-  densitys =300;
+  densitys =5000;
 
 
 densityl = 2*pi*(r0_ini*1000000)*densitys;
@@ -50,7 +50,7 @@ ocupationnumber = zeros(1,iMTLsize);                                        % In
 
  indexocup = randi ([2 (iarraysize)],1,length(numberutemp));
  if numberu>(iarraysize) %|| isnan(numberu)||numberu==0
- ocupationnumber (1:iarraysize) = 1;
+ ocupationnumber (1:iarraysize) = 2;
  else
     ocupationnumber (indexocup) = numberutemp;%randi ([0 density],1,length(indexocup)); 
  end

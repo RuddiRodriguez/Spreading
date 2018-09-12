@@ -179,7 +179,7 @@ while t <= t_final
             [ocupationnumber,MTarryocupation,arrayrates,iMTLsize,ocupationnumbertotal,MTarryocupationttotal] = checking_size_matrix_v1(ocupationnumber,MTarryocupation,arrayrates,counttotal,ocupationnumbertotal,MTarryocupationttotal);
         end
         if count ~=1
-            
+            vm = (pos(end)-pos(end-1))./(times(end)-times(end-1));
             [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu,vm);
             
         end
@@ -235,10 +235,10 @@ while t <= t_final
     %% Plotting
     
     if (mod(m,1000000) == 0)
-           %figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
-        % figure (1);plot(pos(count),rates(1,1),'o');hold off
-        %           drawnow;
-        
+%            figure_control(pos,count,times,controldensity,subplot1,subplot2,subplot3,subplot4);
+%         figure (1);plot(pos(count),rates(1,1),'o');hold off
+%                   drawnow;
+%         
         fprintf('%4.2f\n',times(end));
         fprintf('%4.2f\n',t_final-times(end));
         assignin('base', 'times', times);

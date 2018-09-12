@@ -1,7 +1,11 @@
 function [arrayrates] = arrayrates_values_family_reaction(count,MTarryocupationtemp,numberpb,iMTLsize,MTarryocupation,ocupationnumber,rates,koof,arrayrates,positiontran,tranflag,densitylb,densitylu,v)
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
-ratestemp34 =(densitylu.*1.*v);%+rates(1,4);
+if v<0
+ ratestemp34 =0.0001;
+ratestemp56 =0.0001;  
+else
+  ratestemp34 =(densitylu.*1.*v);%+rates(1,4);
 ratestemp56 =(densitylb.*v);%+rates(1,5);
 
 if count==1 
