@@ -20,12 +20,21 @@ for t = 1:size(results,1)
           
 %          plot_mt_pos ( MTL, pos,times)
          plot(times,pos);hold on;
-       [vector,yy,vinterp,timeto] = sampling_data(times,pos,controldensity,1,90);
+       [vector,yy,vinterp,timeto] = sampling_data(times,pos,controldensity,1,600);
       
         
           %vinterpto(t,1:length(vinterp))=vinterp;
             vinterpto{t}=vinterp;
-            posttt{t}=yy-yy(1);
+            [pks,locs] = findpeaks(yy);
+            if isempty(locs)
+                yyt=yy;
+            posttt{t}=yyt;
+            vinterpto{t}=vinterp;
+            else
+                yyt=yy(1:locs(end));
+                 posttt{t}=yyt;
+                 vinterpto{t}=vinterp(1:locs(end));
+            end
  
         
     end
